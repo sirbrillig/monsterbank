@@ -1,0 +1,22 @@
+= form_for @monster do |f|
+  - if @monster.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@monster.errors.count, "error")} prohibited this monster from being saved:"
+      %ul
+        - @monster.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :name
+    = f.text_field :name, :autofocus => true
+  .field
+    = f.label :level
+    = f.number_field :level, :value => @monster.level || 1, :min => 1, :max => 30
+  .field
+    = f.label :role
+    = f.select(:role, monster_roles)
+  .field
+    = f.label :subrole
+    = f.select(:subrole, [' ', 'Elite', 'Solo'])
+  .actions
+    = f.submit 'Save'
