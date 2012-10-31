@@ -1,6 +1,10 @@
 class Monster < ActiveRecord::Base
   attr_accessible :level, :name, :role, :subrole
 
+  validates :name, :presence => true
+  validates :role, :presence => true, :inclusion => { :in => [ 'Artillery', 'Brute', 'Controller', 'Lurker', 'Minion', 'Skirmisher', 'Soldier' ] }
+  validates :level, :presence => true, :numericality => { :only_integer => true, :greater_than => 0 }
+
   def xp
     case self.level
     when 1 then 100
