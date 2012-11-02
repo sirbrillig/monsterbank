@@ -1,25 +1,30 @@
 require 'spec_helper'
 
-describe "Monster view" do
+describe "Web UI" do
 
   describe "Monster list" do
-    it "should display a list of Monsters" do
+
+    before :all do
+      Monster.destroy_all
+      Monster.new(:name => 'testmonster', :level => 1, :role => 'Artillery').save
+      Monster.new(:name => 'a monster', :level => 2, :role => 'Soldier').save
+    end
+
+    it "displays Monster attribute headers" do
       visit monsters_path
-      page.should have_content "monsters"
+      page.should have_content "Listing monsters"
       page.should have_content "Name"
       page.should have_content "Level"
       page.should have_content "Role"
       page.should have_content "Subrole"
     end
-  end
 
-  # FIXME: this is a unit test
-  describe "Creating a Monster" do
-    it "should make a Monster" do
-      mon1 = Monster.new(:name => 'testmonster', :level => 1, :role => 'Artillery')
-      mon1.save
-      mon2 = Monster.find_by_name('testmonster')
-      mon2.should eq mon1
+    it "displays a list of Monsters" do
+      visit monsters_path
+      page.should have_content "testmonster"
+      page.should have_content "Artillery"
+      page.should have_content "a monster"
+      page.should have_content "Soldier"
     end
   end
 
@@ -33,4 +38,5 @@ describe "Monster view" do
       page.should have_content "Artillery"
     end
   end
-end # Monster view
+
+end 
