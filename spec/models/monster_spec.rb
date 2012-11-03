@@ -14,6 +14,10 @@ describe Monster do
       mon1.role.should eq 'Artillery'
     end
 
+    it "does not validate a blank name" do
+      should_not be_valid
+    end
+
     it "does not validate a 0 level" do
       Monster.new(:name => 'testmonster', :level => 0, :role => 'Soldier').should_not be_valid
     end
@@ -63,6 +67,17 @@ describe Monster do
       mon1.save
       mon2 = Monster.find_by_name('testmonster')
       mon2.should_not be_nil 
+    end
+
+    context "when it has a duplicate name" do
+      it "does not save" do
+        mon1 = Monster.new(:name => 'testmonster', :level => 0, :role => 'Soldier')
+        mon1.save
+        mon2 = Monster.new(:name => 'testmonster2', :level => 2, :role => 'Artillery')
+        mon2.save
+        mon1.name = mon2.name
+        mon1.should_not be_valid
+      end
     end
 
     context "when it has a valid Subrole" do

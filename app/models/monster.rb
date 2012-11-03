@@ -1,7 +1,7 @@
 class Monster < ActiveRecord::Base
   attr_accessible :level, :name, :role, :subrole
 
-  validates :name, :presence => true
+  validates :name, :presence => true, :uniqueness => { :case_sensitive => false }
   validates :role, :presence => true, :inclusion => { :in => [ 'Artillery', 'Brute', 'Controller', 'Lurker', 'Minion', 'Skirmisher', 'Soldier' ] }
   validates :subrole, :inclusion => { :allow_blank => true, :in => [ 'Elite', 'Solo' ] }
   validates :level, :presence => true, :numericality => { :only_integer => true, :greater_than => 0, :less_than => 31 }
