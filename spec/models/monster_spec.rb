@@ -14,6 +14,24 @@ describe Monster do
       mon1.role.should eq 'Artillery'
     end
 
+    it "does not validate a 0 level" do
+      Monster.new(:name => 'testmonster', :level => 0, :role => 'Soldier').should_not be_valid
+    end
+
+    it "does not validate a negative level" do
+      Monster.new(:name => 'testmonster', :level => -4, :role => 'Soldier').should_not be_valid
+    end
+
+    it "does not validate a level over 30" do
+      Monster.new(:name => 'testmonster', :level => 31, :role => 'Soldier').should_not be_valid
+    end
+
+    it "does validate every level between 1-30" do
+      (1 .. 30).each do |lvl|
+        Monster.new(:name => 'testmonster'+lvl.to_s, :level => lvl, :role => 'Soldier').should be_valid
+      end
+    end
+
     it "does not validate an invalid Subrole" do
       Monster.new(:name => 'testmonster', :level => 1, :role => 'Artillery', :subrole => 'Foobar').should_not be_valid
     end
@@ -145,6 +163,10 @@ describe Monster do
 
     it "returns 65000 for a level 28 solo monster" do
       Monster.new(:name => 'testmonster', :level => 28, :role => 'Artillery', :subrole => 'Solo').xp.should eq 65000
+    end
+
+    it "generates an error for a level 100 monster" do
+      lambda { Monster.new(:name => 'testmonster', :level => 100, :role => 'Artillery').xp}.should raise_error(RuntimeError, /valid range for XP/)
     end
   end
 

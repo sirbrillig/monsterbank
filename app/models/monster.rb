@@ -4,7 +4,7 @@ class Monster < ActiveRecord::Base
   validates :name, :presence => true
   validates :role, :presence => true, :inclusion => { :in => [ 'Artillery', 'Brute', 'Controller', 'Lurker', 'Minion', 'Skirmisher', 'Soldier' ] }
   validates :subrole, :inclusion => { :allow_blank => true, :in => [ 'Elite', 'Solo' ] }
-  validates :level, :presence => true, :numericality => { :only_integer => true, :greater_than => 0 }
+  validates :level, :presence => true, :numericality => { :only_integer => true, :greater_than => 0, :less_than => 31 }
 
   # Return the experience point value of this monster from level 1-30.
   #
@@ -42,7 +42,7 @@ class Monster < ActiveRecord::Base
     when 28 then 13000
     when 29 then 15000
     when 30 then 19000
-    else raise "No XP value for this Monster" # FIXME: set and return an error without breaking
+    else raise "Level #{self.level} is not within a valid range for XP"
     end
 
     base_xp /= 4.0 if self.role == 'Minion'
