@@ -29,14 +29,43 @@ describe "Web UI" do
   end
 
   describe "Monster page" do
-    it "should display a Monster" do
-      Monster.new(:name => 'testmonster', :level => 1, :role => 'Artillery').save
-      mon = Monster.find_by_name('testmonster')
-      visit monster_path(mon.id)
-      page.should have_content "Name"
-      page.should have_content "testmonster"
-      page.should have_content "Artillery"
+    context "with a level 1 Artillery Monster" do
+      before :all do
+        @mon = Monster.new(:name => 'testmonster', :level => 1, :role => 'Artillery')
+        @mon.save
+      end
+
+      it "displays Monster name, level, and role" do
+        visit monster_path(@mon.id)
+        page.should have_normal_content "Name: testmonster"
+        page.should have_normal_content "Level: 1"
+        page.should have_normal_content "Role: Artillery"
+      end
+
+      it "displays Monster XP" do
+        visit monster_path(@mon.id)
+        page.should have_normal_content "XP: 100"
+      end
     end
+
+    context "with a level 1 Elite Artillery Monster" do
+      before :all do
+        @mon = Monster.new(:name => 'testmonster', :level => 1, :role => 'Artillery', :subrole => 'Elite')
+        @mon.save
+      end
+
+      it "displays Elite subrole" do
+        visit monster_path(@mon.id)
+        page.should have_normal_content 'Role: Elite Artillery'
+      end
+
+      it "displays double XP for a Elite" do
+        visit monster_path(@mon.id)
+        page.should have_normal_content 'XP: 200'
+      end
+
+    end
+
   end
 
 end 
