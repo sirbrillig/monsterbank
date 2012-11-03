@@ -71,9 +71,9 @@ describe Monster do
 
     context "when it has a duplicate name" do
       it "does not save" do
-        mon1 = Monster.new(:name => 'testmonster', :level => 0, :role => 'Soldier')
+        mon1 = FactoryGirl.create(:level1_soldier)
         mon1.save
-        mon2 = Monster.new(:name => 'testmonster2', :level => 2, :role => 'Artillery')
+        mon2 = FactoryGirl.create(:level2_artillery)
         mon2.save
         mon1.name = mon2.name
         mon1.should_not be_valid
