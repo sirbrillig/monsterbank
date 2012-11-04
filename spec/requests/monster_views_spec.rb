@@ -133,19 +133,62 @@ describe "Web UI" do
     end
 
     context "when changing the subrole to Elite" do
-      it "redirects to the show page"
-      it "updates the subrole to Elite"
+      before :each do 
+        visit edit_monster_path(@mon.id)
+        select('Elite', :from => 'monster[subrole]')
+      end
+
+      it "redirects to the show page" do
+        click_button('Save')
+        page.should_not have_field('monster[subrole]')
+      end
+
+      it "updates the subrole to Elite" do
+        click_button('Save')
+        page.should have_normal_content 'Role: Elite'
+      end
     end
 
     context "when changing the subrole to Solo" do
-      it "redirects to the show page"
-      it "updates the subrole to Solo"
+      before :each do 
+        visit edit_monster_path(@mon.id)
+        select('Elite', :from => 'monster[subrole]')
+      end
+
+      it "redirects to the show page" do
+        click_button('Save')
+        page.should_not have_field('monster[subrole]')
+      end
+
+      it "updates the subrole to Elite" do
+        click_button('Save')
+        page.should have_normal_content 'Role: Elite'
+      end
     end
 
     context "when changing the name" do
-      it "redirects to the show page"
-      it "updates the name"
-      it "fails if the name is blank"
+      before :each do 
+        visit edit_monster_path(@mon.id)
+        fill_in('monster[name]', :with => "testmonster_name_change_#{Time.now.to_i}")
+      end
+
+      it "redirects to the show page" do
+        click_button('Save')
+        page.should_not have_field('monster[name]')
+      end
+
+      it "updates the name" do
+        click_button('Save')
+        page.should have_normal_content "Name: testmonster_name_change_"
+      end
+
+      it "fails if the name is blank" do
+        fill_in('monster[name]', :with => "")
+        click_button('Save')
+        page.should have_field('monster[name]')
+        page.should have_content "Name can't be blank"
+      end
+
       it "fails if the name is a duplicate"
     end
   end # Edit Monster page
