@@ -114,18 +114,34 @@ describe "Web UI" do
         page.should have_content 'Level must be greater than'
       end
     end
+
     context "when changing the role" do
-      it "redirects to the show page"
-      it "updates the role"
+      before :each do 
+        visit edit_monster_path(@mon.id)
+        select('Skirmisher', :from => 'monster[role]')
+      end
+
+      it "redirects to the show page" do
+        click_button('Save')
+        page.should_not have_field('monster[role]')
+      end
+
+      it "updates the role" do
+        click_button('Save')
+        page.should have_normal_content 'Role: Skirmisher'
+      end
     end
+
     context "when changing the subrole to Elite" do
       it "redirects to the show page"
       it "updates the subrole to Elite"
     end
+
     context "when changing the subrole to Solo" do
       it "redirects to the show page"
       it "updates the subrole to Solo"
     end
+
     context "when changing the name" do
       it "redirects to the show page"
       it "updates the name"
