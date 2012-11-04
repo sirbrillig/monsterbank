@@ -189,7 +189,13 @@ describe "Web UI" do
         page.should have_content "Name can't be blank"
       end
 
-      it "fails if the name is a duplicate"
+      it "fails if the name is a duplicate" do
+        mon = FactoryGirl.create(:monster)
+        fill_in('monster[name]', :with => mon.name)
+        click_button('Save')
+        page.should have_field('monster[name]')
+        page.should have_content "Name has already been taken"
+      end
     end
   end # Edit Monster page
 
