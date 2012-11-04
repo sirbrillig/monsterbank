@@ -97,21 +97,21 @@ describe "Web UI" do
         fill_in('monster[level]', :with => 0)
         click_button('Save')
         page.should have_field('monster[level]')
-        # FIXME: look for error message
+        page.should have_content 'Level must be greater than'
       end
 
       it "fails if the level is greater than 30" do
         fill_in('monster[level]', :with => 100)
         click_button('Save')
         page.should have_field('monster[level]')
-        # FIXME: look for error message
+        page.should have_content 'Level must be less than'
       end
 
       it "fails if the level is negative" do
         fill_in('monster[level]', :with => -5)
         click_button('Save')
         page.should have_field('monster[level]')
-        # FIXME: look for error message
+        page.should have_content 'Level must be greater than'
       end
     end
     context "when changing the role" do
