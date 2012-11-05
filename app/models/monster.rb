@@ -1,10 +1,41 @@
 class Monster < ActiveRecord::Base
   attr_accessible :level, :name, :role, :subrole
+  attr_accessible :str, :con, :dex, :int, :wis, :cha, :high_ability
+
+  after_initialize :init_default
 
   validates :name, :presence => true, :uniqueness => { :case_sensitive => false }
   validates :role, :presence => true, :inclusion => { :in => [ 'Artillery', 'Brute', 'Controller', 'Lurker', 'Minion', 'Skirmisher', 'Soldier' ] }
   validates :subrole, :inclusion => { :allow_blank => true, :in => [ 'Elite', 'Solo' ] }
   validates :level, :presence => true, :numericality => { :only_integer => true, :greater_than => 0, :less_than => 31 }
+  validates :str, :presence => true, :numericality => { :only_integer => true, :greater_than => -30, :less_than => 40 }
+  validates :con, :presence => true, :numericality => { :only_integer => true, :greater_than => -30, :less_than => 40 }
+  validates :dex, :presence => true, :numericality => { :only_integer => true, :greater_than => -30, :less_than => 40 }
+  validates :int, :presence => true, :numericality => { :only_integer => true, :greater_than => -30, :less_than => 40 }
+  validates :wis, :presence => true, :numericality => { :only_integer => true, :greater_than => -30, :less_than => 40 }
+  validates :cha, :presence => true, :numericality => { :only_integer => true, :greater_than => -30, :less_than => 40 }
+
+  # Initialize the default values.
+  def init_default
+    self.str ||= default_score_for :str
+    self.con ||= default_score_for :con
+    self.dex ||= default_score_for :dex
+    self.int ||= default_score_for :int
+    self.wis ||= default_score_for :wis
+    self.cha ||= default_score_for :cha
+  end
+
+  # Return the default Ability score.
+  def default_score_for(abil)
+    add = 13
+    add = 16 if self.high_ability.to_s == abil.to_s
+    add + (self.level / 2.0).floor
+  end
+
+  # Return the six ability scores as a Hash
+  def ability_scores
+    {:str => str, :con => con, :dex => dex, :int => int, :wis => wis, :cha => cha}
+  end
 
   # Return the experience point value of this monster from level 1-30.
   #
@@ -52,16 +83,15 @@ class Monster < ActiveRecord::Base
   end
 
   def hp
-    case self.role
-    when 'Soldier' then hp_by_level[self.level][:high]
+    multiplier = case self.role
+    when 'Skirmisher' then 8
+    else 1
     end
+
+    total = multiplier + (multiplier * self.level) + self.con
+    total *= 2 if self.subrole == 'Elite'
+    total *= 4 if self.subrole == 'Solo' # This isn't quite what the book says, but close enough.
+    total
   end
 
-  def hp_by_level
-    {
-      1 => { low: 24, medium:30, high:38 },
-      2 => { low: 30, medium:38, high:48 },
-      3 => { low: 36, medium:46, high:58 },
-    }
-  end
 end

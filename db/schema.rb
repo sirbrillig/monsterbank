@@ -11,15 +11,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121030213131) do
+ActiveRecord::Schema.define(:version => 20121105010736) do
 
   create_table "monsters", :force => true do |t|
     t.string   "name"
     t.integer  "level"
     t.string   "role"
     t.string   "subrole"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "str"
+    t.integer  "con"
+    t.integer  "dex"
+    t.integer  "int"
+    t.integer  "wis"
+    t.integer  "cha"
+    t.string   "high_ability"
   end
 
 end

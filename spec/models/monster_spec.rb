@@ -185,4 +185,70 @@ describe Monster do
     end
   end
 
+  describe "#ability_scores" do
+    before :each do
+      Monster.destroy_all
+      @mon = FactoryGirl.create(:level1_soldier)
+    end
+
+    it "returns a hash of six elements" do
+      @mon.ability_scores.should have(6).items
+    end
+
+    it "each is 13 + (.5 * level) for a low stat" do
+      @mon.high_ability = :str
+      total = 13 + (@mon.level / 2.0).floor
+      @mon.ability_scores.each_key do |abil|
+        @mon.send(abil).should eq total unless abil eq @mon.high_ability
+      end
+    end
+
+    it "each is 16 + (.5 * level) for a high stat" do
+      @mon.high_ability = :dex
+      total = 13 + (@mon.level / 2.0).floor
+      @mon.send(@mon.high_ability).should eq total
+    end
+
+    it "allows setting each score" do
+      @mon.ability_scores.each_key do |abil|
+        @mon.send(abil+'=', 5)
+        @mon.send(abil).should eq 5
+      end
+    end
+
+    it "resets the score to the default if set to nil" do
+      mon2 = FactoryGirl.build(:level1_soldier)
+      mon2.name = mon2.name + '1'
+      mon2.int.should_not eq 2
+      @mon.int = 2
+      @mon.int.should eq 2
+      @mon.int = nil
+      @mon.int.should eq mon2.int
+    end
+  end
+
+  describe "#hp" do
+    context "when the Con score is 10" do
+      before :each do
+        Monster.destroy_all
+        @mon = FactoryGirl.build(:level1_soldier)
+        @mon.con = 10
+      end
+
+      it "returns 8 + (level * 8) + Con score for a Skirmisher" do
+        @mon.role = 'Skirmisher'
+        @mon.hp.should eq (8 + (@mon.level * 8) + @mon.con)
+      end
+
+      it "returns 10 + (level * 10) + Con score for a Brute"
+      it "returns 8 + (level * 8) + Con score for a Soldier"
+      it "returns 6 + (level * 6) + Con score for a Lurker"
+      it "returns 8 + (level * 8) + Con score for a Controller"
+      it "returns 6 + (level * 6) + Con score for an Artillery"
+
+      it "returns double HP for an Elite"
+      it "returns quadruple the HP for a Solo"
+    end
+  end
+
 end # Monster
