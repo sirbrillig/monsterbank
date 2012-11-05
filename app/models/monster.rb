@@ -2,33 +2,75 @@ class Monster < ActiveRecord::Base
   attr_accessible :level, :name, :role, :subrole
   attr_accessible :str, :con, :dex, :int, :wis, :cha, :high_ability
 
-  after_initialize :init_default
-
   validates :name, :presence => true, :uniqueness => { :case_sensitive => false }
   validates :role, :presence => true, :inclusion => { :in => [ 'Artillery', 'Brute', 'Controller', 'Lurker', 'Minion', 'Skirmisher', 'Soldier' ] }
   validates :subrole, :inclusion => { :allow_blank => true, :in => [ 'Elite', 'Solo' ] }
   validates :level, :presence => true, :numericality => { :only_integer => true, :greater_than => 0, :less_than => 31 }
-  validates :str, :presence => true, :numericality => { :only_integer => true, :greater_than => -30, :less_than => 40 }
-  validates :con, :presence => true, :numericality => { :only_integer => true, :greater_than => -30, :less_than => 40 }
-  validates :dex, :presence => true, :numericality => { :only_integer => true, :greater_than => -30, :less_than => 40 }
-  validates :int, :presence => true, :numericality => { :only_integer => true, :greater_than => -30, :less_than => 40 }
-  validates :wis, :presence => true, :numericality => { :only_integer => true, :greater_than => -30, :less_than => 40 }
-  validates :cha, :presence => true, :numericality => { :only_integer => true, :greater_than => -30, :less_than => 40 }
 
-  # Initialize the default values.
-  def init_default
-    self.str ||= default_score_for :str
-    self.con ||= default_score_for :con
-    self.dex ||= default_score_for :dex
-    self.int ||= default_score_for :int
-    self.wis ||= default_score_for :wis
-    self.cha ||= default_score_for :cha
+  # will these work with the default accessors below?
+  validates :str, :numericality => { :only_integer => true, :greater_than => -30, :less_than => 40 }
+  validates :con, :numericality => { :only_integer => true, :greater_than => -30, :less_than => 40 }
+  validates :dex, :numericality => { :only_integer => true, :greater_than => -30, :less_than => 40 }
+  validates :int, :numericality => { :only_integer => true, :greater_than => -30, :less_than => 40 }
+  validates :wis, :numericality => { :only_integer => true, :greater_than => -30, :less_than => 40 }
+  validates :cha, :numericality => { :only_integer => true, :greater_than => -30, :less_than => 40 }
+
+  # Unfortunately it appears that making default values for the ability scores
+  # is not an easy thing. I added the reader accessors below but was forced to
+  # add the setters as well for an unknown reason.
+  def str=(val)
+    @str = val
+  end
+
+  def con=(val)
+    @con = val
+  end
+
+  def dex=(val)
+    @dex = val
+  end
+
+  def int=(val)
+    @int = val
+  end
+
+  def wis=(val)
+    @wis = val
+  end
+
+  def cha=(val)
+    @cha = val
+  end
+
+  def str
+    @str || default_score_for(:str)
+  end
+
+  def con
+    @con || default_score_for(:con)
+  end
+
+  def dex
+    @dex || default_score_for(:dex)
+  end
+
+  def int
+    @int || default_score_for(:int)
+  end
+
+  def wis
+    @wis || default_score_for(:wis)
+  end
+
+  def cha
+    @cha || default_score_for(:cha)
   end
 
   # Return the default Ability score.
   def default_score_for(abil)
     add = 13
     add = 16 if self.high_ability.to_s == abil.to_s
+    return add if self.level.nil? # Edge cases where this is just a validation run
     add + (self.level / 2.0).floor
   end
 
@@ -85,6 +127,11 @@ class Monster < ActiveRecord::Base
   def hp
     multiplier = case self.role
     when 'Skirmisher' then 8
+    when 'Brute' then 10
+    when 'Soldier' then 8
+    when 'Lurker' then 6
+    when 'Controller' then 8
+    when 'Artillery' then 6
     else 1
     end
 

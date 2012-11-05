@@ -15,7 +15,9 @@ describe Monster do
     end
 
     it "does not validate a blank name" do
-      should_not be_valid
+      mon = FactoryGirl.build(:level1_soldier)
+      mon.name = ''
+      mon.should_not be_valid
     end
 
     it "does not validate a 0 level" do
@@ -195,23 +197,25 @@ describe Monster do
       @mon.ability_scores.should have(6).items
     end
 
-    it "each is 13 + (.5 * level) for a low stat" do
+    it "each is 13 + (level / 2) for a low stat" do
       @mon.high_ability = :str
       total = 13 + (@mon.level / 2.0).floor
       @mon.ability_scores.each_key do |abil|
-        @mon.send(abil).should eq total unless abil eq @mon.high_ability
+        unless abil.to_s == @mon.high_ability.to_s
+          @mon.send(abil).should eq total
+        end
       end
     end
 
-    it "each is 16 + (.5 * level) for a high stat" do
+    it "each is 16 + (level / 2) for a high stat" do
       @mon.high_ability = :dex
-      total = 13 + (@mon.level / 2.0).floor
+      total = 16 + (@mon.level / 2.0).floor
       @mon.send(@mon.high_ability).should eq total
     end
 
     it "allows setting each score" do
       @mon.ability_scores.each_key do |abil|
-        @mon.send(abil+'=', 5)
+        @mon.send("#{abil}=", 5)
         @mon.send(abil).should eq 5
       end
     end
@@ -227,27 +231,82 @@ describe Monster do
     end
   end
 
+  describe "#default_score_for" do
+    before :each do
+      @mon = FactoryGirl.build(:level1_soldier)
+    end
+
+    it "returns 13 + (level / 2), which for level 1 = 13" do
+      @mon.default_score_for(:str).should eq 13
+    end
+
+    it "returns 16 + (level / 2) for a high score, which for level 1 = 16" do
+      @mon.high_ability = :str
+      @mon.default_score_for(:str).should eq 16
+    end
+
+    it "returns 13 + (level / 2), which for level 5 = 15" do
+      @mon.level = 5
+      @mon.default_score_for(:str).should eq 15
+    end
+
+    it "returns 16 + (level / 2) for a high score, which for level 5 = 18" do
+      @mon.level = 5
+      @mon.high_ability = :str
+      @mon.default_score_for(:str).should eq 18
+    end
+  end
+
   describe "#hp" do
     context "when the Con score is 10" do
       before :each do
         Monster.destroy_all
         @mon = FactoryGirl.build(:level1_soldier)
-        @mon.con = 10
+        @con_score = 10
+        @mon.con = @con_score
       end
 
       it "returns 8 + (level * 8) + Con score for a Skirmisher" do
         @mon.role = 'Skirmisher'
-        @mon.hp.should eq (8 + (@mon.level * 8) + @mon.con)
+        @mon.hp.should eq (8 + (@mon.level * 8) + @con_score)
       end
 
-      it "returns 10 + (level * 10) + Con score for a Brute"
-      it "returns 8 + (level * 8) + Con score for a Soldier"
-      it "returns 6 + (level * 6) + Con score for a Lurker"
-      it "returns 8 + (level * 8) + Con score for a Controller"
-      it "returns 6 + (level * 6) + Con score for an Artillery"
+      it "returns 10 + (level * 10) + Con score for a Brute" do
+        @mon.role = 'Brute'
+        @mon.hp.should eq (10 + (@mon.level * 10) + @con_score)
+      end
 
-      it "returns double HP for an Elite"
-      it "returns quadruple the HP for a Solo"
+      it "returns 8 + (level * 8) + Con score for a Soldier" do
+        @mon.role = 'Soldier'
+        @mon.hp.should eq (8 + (@mon.level * 8) + @con_score)
+      end
+
+      it "returns 6 + (level * 6) + Con score for a Lurker" do
+        @mon.role = 'Lurker'
+        @mon.hp.should eq (6 + (@mon.level * 6) + @con_score)
+      end
+
+      it "returns 8 + (level * 8) + Con score for a Controller" do
+        @mon.role = 'Controller'
+        @mon.hp.should eq (8 + (@mon.level * 8) + @con_score)
+      end
+
+      it "returns 6 + (level * 6) + Con score for an Artillery"do
+        @mon.role = 'Artillery'
+        @mon.hp.should eq (6 + (@mon.level * 6) + @con_score)
+      end
+
+      it "returns double HP for an Elite" do
+        old_hp = @mon.hp
+        @mon.subrole = 'Elite'
+        @mon.hp.should eq (old_hp * 2)
+      end
+
+      it "returns quadruple the HP for a Solo" do
+        old_hp = @mon.hp
+        @mon.subrole = 'Solo'
+        @mon.hp.should eq (old_hp * 4)
+      end
     end
   end
 
