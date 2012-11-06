@@ -310,4 +310,28 @@ describe Monster do
     end
   end
 
+  describe "#starred" do
+    before :each do
+      Monster.destroy_all
+      @mon = FactoryGirl.create(:level1_soldier)
+    end
+
+    it "stars the Monster" do
+      @mon.starred = true
+      @mon.should be_valid
+      @mon.save
+      @mon.reload
+      @mon.starred.should eq true
+    end
+
+    it "unstars the Monster" do
+      @mon.starred = true
+      @mon.save
+      @mon.reload
+      @mon.starred = false
+      @mon.save
+      @mon.starred.should eq false
+    end
+  end
+
 end # Monster
