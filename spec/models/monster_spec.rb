@@ -6,6 +6,7 @@ describe Monster do
   end
 
   it { should have_and_belong_to_many(:tags) }
+  it { should belong_to(:user) }
 
   describe "#new" do
     before :each do
