@@ -40,6 +40,8 @@ gem 'jquery-rails'
 gem 'haml'
 gem 'haml-rails'
 
+gem 'bcrypt-ruby'
+
 group :development, :test do
   gem 'rspec-rails'
 end

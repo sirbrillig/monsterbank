@@ -1,5 +1,7 @@
 Monsterbank::Application.routes.draw do
-  resources :monsters
+  resources :monsters, :users, :sessions, :tags
+  match '/signout', :to => 'sessions#destroy'
+  match '/signin', :to => 'sessions#new'
 
   get "home/index"
 

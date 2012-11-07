@@ -7,8 +7,20 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <% if flash[:notice] -%>
+    <div id="notice"><%= flash[:notice]%></div>
+  <% end -%>
+  <% if flash[:error] -%>
+    <div id="error"><%= flash[:error]%></div>
+  <% end -%>
 
 <%= yield %>
+
+<% if current_user -%>
+  <a href="/signout">Log Out</a>
+<% else -%>
+  <a href="/signin">Sign in</a>
+<% end -%>
 
 </body>
 </html>

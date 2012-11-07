@@ -2,6 +2,8 @@ class MonstersController < ApplicationController
   # GET /monsters
   # GET /monsters.json
   def index
+    return redirect_to :signin unless current_user
+    @current_user = current_user
     @monsters = Monster.all
 
     respond_to do |format|

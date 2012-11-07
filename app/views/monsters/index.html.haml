@@ -1,4 +1,6 @@
 %h1 Listing monsters
+- if @current_user
+  %h2 Current User: #{@current_user.email}
 
 %table
   %tr
