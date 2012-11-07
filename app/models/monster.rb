@@ -1,4 +1,6 @@
 class Monster < ActiveRecord::Base
+  has_and_belongs_to_many :tags
+
   attr_accessible :level, :name, :role, :subrole
   attr_accessible :str, :con, :dex, :int, :wis, :cha, :high_ability, :starred
 

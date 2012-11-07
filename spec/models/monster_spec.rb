@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe Monster do
+  before do
+    @mon = FactoryGirl.create(:monster)
+  end
+
+  it { should have_and_belong_to_many(:tags) }
 
   describe "#new" do
     before :each do
