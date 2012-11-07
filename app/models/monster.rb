@@ -2,6 +2,8 @@ class Monster < ActiveRecord::Base
   has_and_belongs_to_many :tags
   belongs_to :user
 
+  scope :for_user, lambda { |user| joins(:user).where("user_id = ?", user.id) }
+
   attr_accessible :level, :name, :role, :subrole
   attr_accessible :str, :con, :dex, :int, :wis, :cha, :high_ability, :starred
 

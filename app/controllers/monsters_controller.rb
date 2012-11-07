@@ -1,10 +1,12 @@
 class MonstersController < ApplicationController
+  before_filter :authenticate_user
+
   # GET /monsters
   # GET /monsters.json
   def index
-    return redirect_to :signin unless current_user
     @current_user = current_user
-    @monsters = Monster.all
+    @monsters = @current_user.monsters
+#     @monsters = Monster.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,7 +17,7 @@ class MonstersController < ApplicationController
   # GET /monsters/1
   # GET /monsters/1.json
   def show
-    @monster = Monster.find(params[:id])
+    @monster = Monster.for_user(current_user).find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -36,13 +38,14 @@ class MonstersController < ApplicationController
 
   # GET /monsters/1/edit
   def edit
-    @monster = Monster.find(params[:id])
+    @monster = Monster.for_user(current_user).find(params[:id])
   end
 
   # POST /monsters
   # POST /monsters.json
   def create
     @monster = Monster.new(params[:monster])
+    @monster.user = current_user
 
     respond_to do |format|
       if @monster.save
@@ -58,7 +61,7 @@ class MonstersController < ApplicationController
   # PUT /monsters/1
   # PUT /monsters/1.json
   def update
-    @monster = Monster.find(params[:id])
+    @monster = Monster.for_user(current_user).find(params[:id])
 
     respond_to do |format|
       if @monster.update_attributes(params[:monster])
@@ -74,12 +77,17 @@ class MonstersController < ApplicationController
   # DELETE /monsters/1
   # DELETE /monsters/1.json
   def destroy
-    @monster = Monster.find(params[:id])
+    @monster = Monster.for_user(current_user).find(params[:id])
     @monster.destroy
 
     respond_to do |format|
       format.html { redirect_to monsters_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def authenticate_user
+    return redirect_to :signin unless current_user
   end
 end
