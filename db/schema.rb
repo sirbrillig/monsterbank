@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121107015633) do
+ActiveRecord::Schema.define(:version => 20121107052329) do
 
   create_table "monsters", :force => true do |t|
     t.string   "name"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(:version => 20121107015633) do
     t.integer  "cha"
     t.string   "high_ability"
     t.boolean  "starred"
+    t.integer  "user_id"
   end
 
   create_table "monsters_tags", :id => false, :force => true do |t|

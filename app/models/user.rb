@@ -3,4 +3,6 @@ class User < ActiveRecord::Base
   has_secure_password
   validates :password, :presence => { :on => :create }
   validates :email, :presence => { :on => :create }, :uniqueness => { :case_sensitive => false }
+
+  has_many :monsters
 end

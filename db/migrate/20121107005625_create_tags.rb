@@ -7,8 +7,11 @@ class CreateTags < ActiveRecord::Migration
     end
 
     create_table :monsters_tags, :id => false do |t|
-      t.integer :tag_id
-      t.integer :monster_id
+      t.references :monster, :tag
+#       t.integer :tag_id
+#       t.integer :monster_id
     end
+
+    add_index :monsters_tags, [:monster_id, :tag_id]
   end
 end
