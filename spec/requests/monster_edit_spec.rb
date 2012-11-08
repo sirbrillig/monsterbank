@@ -1,10 +1,15 @@
 require 'spec_helper'
 
 describe "Edit Monster page" do
-    before :each do
-      Monster.destroy_all #FIXME: this should not be necessary
-      @mon = FactoryGirl.create(:level1_artillery)
-    end
+  before :each do
+    Monster.destroy_all
+    @user = FactoryGirl.create(:user)
+    visit login_path
+    fill_in('email', :with => @user.email) 
+    fill_in('password', :with => @user.password)
+    click_button('Log In')
+    @mon = FactoryGirl.create(:level1_artillery, :user => @user)
+  end
 
   it "displays Monster name, level, and role" do
     visit edit_monster_path(@mon.id)
@@ -133,4 +138,4 @@ describe "Edit Monster page" do
       page.should have_content "Name has already been taken"
     end
   end
-    end # Edit Monster page
+end # Edit Monster page

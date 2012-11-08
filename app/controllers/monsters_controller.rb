@@ -88,6 +88,6 @@ class MonstersController < ApplicationController
 
   private
   def authenticate_user
-    return redirect_to :signin unless current_user
+    return redirect_to :login unless current_user
   end
 end

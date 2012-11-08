@@ -1,9 +1,17 @@
 require 'spec_helper'
 
 describe "Monster page" do
+  before do
+    @user = FactoryGirl.create(:user)
+    visit login_path
+    fill_in('email', :with => @user.email) 
+    fill_in('password', :with => @user.password)
+    click_button('Log In')
+  end
+
   context "with a level 1 Artillery Monster" do
-    before :all do
-      @mon = FactoryGirl.create(:level1_artillery)
+    before :each do
+      @mon = FactoryGirl.create(:level1_artillery, :user => @user)
     end
 
     it "displays Monster name, level, and role" do
@@ -20,8 +28,8 @@ describe "Monster page" do
   end
 
   context "with a level 1 Elite Artillery Monster" do
-    before :all do
-      @mon = FactoryGirl.create(:level1_elite_artillery)
+    before :each do
+      @mon = FactoryGirl.create(:level1_elite_artillery, :user => @user)
     end
 
     it "displays Elite subrole" do

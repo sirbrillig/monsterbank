@@ -2,10 +2,15 @@ require 'spec_helper'
 
 describe "Monster list" do
 
-  before :all do
+  before :each do
+    @user = FactoryGirl.create(:user)
+    visit login_path
+    fill_in('email', :with => @user.email) 
+    fill_in('password', :with => @user.password)
+    click_button('Log In')
     Monster.destroy_all
-    Monster.new(:name => 'testmonster', :level => 1, :role => 'Artillery').save
-    Monster.new(:name => 'a monster', :level => 2, :role => 'Soldier').save
+    FactoryGirl.create(:level1_artillery, :name => 'testmonster', :user => @user)
+    FactoryGirl.create(:level1_artillery, :role => 'Soldier', :name => 'a monster', :user => @user)
   end
 
   it "displays Monster attribute headers" do
