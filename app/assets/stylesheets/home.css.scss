@@ -10,15 +10,14 @@ $zen-gutter-width: 10px;
 $edge-margins: 30px;
 @mixin standard-font {
   font-family: "Arial", sans-serif;
-  font-size: 18pt;
+  font-size: 2em;
+  line-height: 1em;
 }
 
 // Layout
 .container {
   @include zen-clear();
   @include zen-grid-container;
-  margin-left: $edge-margins;
-  margin-right: $edge-margins;
 }
 .content1 {
   @include zen-grid-item(4,1);
@@ -42,6 +41,15 @@ footer {
 
 
 // Elements
+body {
+  margin: 0px;
+}
+
+.content {
+  margin-left: $edge-margins;
+  margin-right: $edge-margins;
+}
+
 header {
   text-align: center;
   background-color: green;
@@ -50,14 +58,12 @@ header {
   h1 {
     @include standard-font;
     font-size: 48pt;
-    margin-top: 15px;
-    margin-bottom: 5px;
+    margin-top: 0px;
   }
 
   p {
     @include standard-font;
     font-size: 24pt;
-    margin-bottom: 5px;
   }
 }
 
@@ -66,15 +72,10 @@ section {
   h1 {
     @include standard-font;
     font-size: 24pt;
-    font-weight: bold;
-    margin-top: 15px;
-    margin-bottom: 5px;
   }
 
   p {
     @include standard-font;
-    margin-top: 5px;
-    margin-bottom: 5px;
   }
 }
 
