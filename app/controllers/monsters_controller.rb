@@ -80,7 +80,7 @@ class MonstersController < ApplicationController
     @monster.destroy
 
     respond_to do |format|
-      format.html { redirect_to monsters_url }
+      format.html { redirect_to monsters_url, notice: 'Monster has been deleted.' }
       format.json { head :no_content }
     end
   end

@@ -2,6 +2,8 @@
 
 = render 'form'
 
+= button_to "Delete This Monster", @monster, :method => :delete
+
 = link_to 'Show', @monster
 \|
 = link_to 'Back', monsters_path

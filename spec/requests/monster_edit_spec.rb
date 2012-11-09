@@ -140,7 +140,7 @@ describe "Edit Monster page" do
   end
 
   context "when deleting a Monster" do
-    before :each do 
+    it "should confirm the deletion" do
       visit edit_monster_path(@mon.id)
       click_button('Delete This Monster')
       page.should have_content "has been deleted"
