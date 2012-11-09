@@ -1,3 +1,101 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "zen";
+
+$zen-column-count: 12;
+$zen-gutter-width: 10px;
+
+$edge-margins: 30px;
+@mixin standard-font {
+  font-family: "Arial", sans-serif;
+  font-size: 18pt;
+}
+
+// Layout
+.container {
+  @include zen-clear();
+  @include zen-grid-container;
+  margin-left: $edge-margins;
+  margin-right: $edge-margins;
+}
+.content1 {
+  @include zen-grid-item(4,1);
+}
+.content2 {
+  @include zen-clear();
+  @include zen-grid-item(4,1);
+}
+.content3 {
+  @include zen-grid-item(4,9);
+}
+.content4 {
+  @include zen-grid-item(4,9);
+}
+.links1 {
+  @include zen-grid-item(4,5);
+}
+footer {
+  @include zen-clear();
+}
+
+
+// Elements
+header {
+  text-align: center;
+  background-color: green;
+  color: white;
+
+  h1 {
+    @include standard-font;
+    font-size: 48pt;
+    margin-top: 15px;
+    margin-bottom: 5px;
+  }
+
+  p {
+    @include standard-font;
+    font-size: 24pt;
+    margin-bottom: 5px;
+  }
+}
+
+
+section {
+  h1 {
+    @include standard-font;
+    font-size: 24pt;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 5px;
+  }
+
+  p {
+    @include standard-font;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+}
+
+.links1 {
+  margin-top: 50px;
+
+  a {
+    @include standard-font;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    display: block;
+    text-align: center;
+  }
+}
+
+footer {
+  margin-top: 30px;
+  text-align: center;
+
+  a {
+    @include standard-font;
+  }
+}

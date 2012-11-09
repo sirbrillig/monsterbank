@@ -1,0 +1,25 @@
+!!! HTML
+!!!
+%html
+  %head
+    %title MonsterBank
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body
+    - if flash[:notice]
+      #notice
+        = flash[:notice]
+    - if flash[:error]
+      #error
+        = flash[:error]
+
+    = yield
+
+    %footer
+      - if current_user
+        = link_to('log out', logout_path)
+      - else
+        = link_to('sign up', signup_path)
+        |
+        = link_to('log in', login_path)

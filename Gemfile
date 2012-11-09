@@ -6,6 +6,8 @@ gem 'sqlite3'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
+  gem 'compass-rails'
+  gem 'zen-grids'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
 end
@@ -29,8 +31,6 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 
 gem 'haml'
 gem 'haml-rails'
-gem 'compass'
-gem 'zen-grids'
 
 group :development, :test do
   gem 'rspec-rails'
