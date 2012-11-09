@@ -138,4 +138,12 @@ describe "Edit Monster page" do
       page.should have_content "Name has already been taken"
     end
   end
+
+  context "when deleting a Monster" do
+    before :each do 
+      visit edit_monster_path(@mon.id)
+      click_button('Delete This Monster')
+      page.should have_content "has been deleted"
+    end
+  end
 end # Edit Monster page

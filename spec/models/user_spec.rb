@@ -16,4 +16,13 @@ describe User do
       user2.should eq @user
     end
   end
+
+  describe "#destroy" do
+    it "also destroys owned monsters" do
+      mon = FactoryGirl.create(:monster, :name => 'test owned by user')
+      @user.monsters << mon
+      @user.destroy
+      Monster.find_by_name(mon.name).should be_nil
+    end
+  end
 end

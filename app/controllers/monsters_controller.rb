@@ -6,7 +6,6 @@ class MonstersController < ApplicationController
   def index
     @current_user = current_user
     @monsters = @current_user.monsters
-#     @monsters = Monster.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -38,7 +37,7 @@ class MonstersController < ApplicationController
 
   # GET /monsters/1/edit
   def edit
-    @monster = Monster.for_user(current_user).find(params[:id])
+    @monster = Monster.for_user(current_user).find(params[:id]) # Note that this creates a JOIN and is therefore ReadOnly.
   end
 
   # POST /monsters
@@ -61,7 +60,7 @@ class MonstersController < ApplicationController
   # PUT /monsters/1
   # PUT /monsters/1.json
   def update
-    @monster = Monster.for_user(current_user).find(params[:id])
+    @monster = Monster.find(:first, :conditions => { :id => params[:id], :user_id => current_user.id })
 
     respond_to do |format|
       if @monster.update_attributes(params[:monster])
@@ -77,7 +76,7 @@ class MonstersController < ApplicationController
   # DELETE /monsters/1
   # DELETE /monsters/1.json
   def destroy
-    @monster = Monster.for_user(current_user).find(params[:id])
+    @monster = Monster.find(:first, :conditions => { :id => params[:id], :user_id => current_user.id })
     @monster.destroy
 
     respond_to do |format|

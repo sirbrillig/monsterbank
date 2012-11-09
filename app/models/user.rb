@@ -4,5 +4,5 @@ class User < ActiveRecord::Base
   validates :password, :presence => { :on => :create }
   validates :email, :presence => { :on => :create }, :uniqueness => { :case_sensitive => false }
 
-  has_many :monsters
+  has_many :monsters, :dependent => :destroy
 end

@@ -149,6 +149,24 @@ describe Monster do
       mon2 = Monster.find_by_name('testmonster')
       mon2.should be_nil
     end
+    
+    it "does not remove the owning User" do
+      mon = FactoryGirl.create(:monster, :name => 'test owning user')
+      user = FactoryGirl.create(:user)
+      user.monsters << mon
+      mon.destroy
+      user.should_not be_nil
+    end
+
+    context "when the monster is tagged" do
+      it "does not remove the tag" do
+        mon = FactoryGirl.create(:monster, :name => 'test owning tag')
+        tag = FactoryGirl.create(:tag)
+        tag.monsters << mon
+        mon.destroy
+        tag.should_not be_nil
+      end
+    end
   end
 
   describe "#xp" do
