@@ -13,8 +13,10 @@
     - if flash[:error]
       #error
         = flash[:error]
-
-    = yield
+    .container
+      %header
+        = image_tag('header.png')
+      = yield
 
     %footer
       - if current_user

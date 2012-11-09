@@ -1,3 +1,106 @@
-// Place all the styles related to the users controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "zen";
+
+$zen-column-count: 12;
+$zen-gutter-width: 10px;
+
+// Layout
+.container {
+  @include zen-clear();
+  @include zen-grid-container;
+}
+.description {
+  @include zen-grid-item(3,5);
+}
+.form {
+  .field {
+    @include zen-clear();
+    @include zen-grid-item(6,3);
+  }
+  .actions {
+    @include zen-clear();
+    @include zen-grid-item(5,4);
+  }
+}
+#error_explanation {
+  @include zen-clear();
+  @include zen-grid-item(4,5);
+}
+footer {
+  @include zen-clear();
+}
+
+
+// Elements
+$edge-margins: 20px;
+
+// Assuming font-size defaults to 16pt, we can use math to make ems.
+// Found a function here: http://blog.poleteweb.com/pixel-to-em-math-using-sass
+$browser-context: 16pt;
+@mixin pt-to-ems($prop, $pixels, $context: $browser-context) {
+  #{$prop}: #{$pixels/$context}em
+}
+
+@mixin standard-font {
+  font-family: "gillsans", "Arial", sans-serif;
+  @include pt-to-ems(font-size, 18pt);
+  text-align: justify;
+}
+
+body {
+  margin: 0px;
+  font-size: 100%; // Necessary for scaling.
+  line-height: 1.125em; // 18pt; From: http://www.alistapart.com/articles/howtosizetextincss/
+}
+
+.content {
+  margin-left: $edge-margins;
+  margin-right: $edge-margins;
+}
+
+header {
+  text-align: center;
+}
+
+section {
+  h1 {
+    @include standard-font;
+    @include pt-to-ems(font-size, 24pt);
+  }
+
+  p {
+    @include standard-font;
+  }
+
+  label {
+    @include standard-font;
+    @include pt-to-ems(font-size, 24pt);
+  }
+
+  input.text {
+    @include standard-font;
+    @include pt-to-ems(font-size, 24pt);
+    width: 12em;
+  }
+}
+
+.form {
+  .field {
+    text-align: right;
+  }
+  .actions {
+    text-align: center;
+    @include pt-to-ems(font-size, 24pt);
+  }
+  .field_with_errors {
+    display: inline;
+  }
+}
+
+footer {
+  margin-top: 30px;
+  text-align: center;
+
+  a {
+    @include standard-font;
+  }
+}
