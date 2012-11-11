@@ -1,11 +1,18 @@
-%h1 Log In
+.content
 
-= form_tag sessions_path do
-  .field
-    = label_tag :email
-    = text_field_tag :email, params[:email], :autofocus => true
-  .field
-    = label_tag :password
-    = password_field_tag :password
-  .actions
-    = submit_tag "Log In"
+  %section.description
+    %h1 Log In
+    %p 
+      If you don't have an account, 
+      = link_to('sign up.', :signup)
+
+  %section.form
+    = form_tag sessions_path do
+      .field
+        = label_tag :email
+        = text_field_tag :email, params[:email], :autofocus => true, :class => :text
+      .field
+        = label_tag :password
+        = password_field_tag :password, nil, :class => :text
+      .actions
+        = submit_tag "Log In", :type => :image, :src => 'assets/login_button.png'

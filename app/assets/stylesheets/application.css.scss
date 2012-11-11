@@ -1,0 +1,59 @@
+@import "zen";
+
+$zen-column-count: 12;
+$zen-gutter-width: 10px;
+
+// Layout
+.container {
+  @include zen-clear();
+  @include zen-grid-container;
+}
+#error, #notice {
+  @include zen-clear();
+  @include zen-grid-item(4,5);
+  border: 2px solid red;
+  padding: 1em;
+}
+
+header {
+  text-align: center;
+}
+
+footer {
+  @include zen-clear();
+}
+
+
+// Elements
+$edge-margins: 20px;
+$link-color: green;
+
+// Assuming font-size defaults to 16pt, we can use math to make ems.
+// Found a function here: http://blog.poleteweb.com/pixel-to-em-math-using-sass
+$browser-context: 16pt;
+@mixin pt-to-ems($prop, $pixels, $context: $browser-context) {
+  #{$prop}: #{$pixels/$context}em
+}
+
+@mixin standard-font {
+  font-family: "gillsans", "Arial", sans-serif;
+  @include pt-to-ems(font-size, 18pt);
+  text-align: justify;
+}
+
+a:hover {
+  background-color: white;
+  color: $link-color;
+}
+
+body {
+  margin: 0px;
+  font-size: 100%; // Necessary for scaling.
+  line-height: 1.125em; // 18pt; From: http://www.alistapart.com/articles/howtosizetextincss/
+}
+
+.content {
+  margin-left: $edge-margins;
+  margin-right: $edge-margins;
+}
+

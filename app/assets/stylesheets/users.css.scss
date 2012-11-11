@@ -1,20 +1,13 @@
-@import "zen";
+@import "application.css.scss";
 
-$zen-column-count: 12;
-$zen-gutter-width: 10px;
-
-// Layout
-.container {
-  @include zen-clear();
-  @include zen-grid-container;
-}
 .description {
+  @include zen-clear();
   @include zen-grid-item(3,5);
 }
 .form {
   .field {
     @include zen-clear();
-    @include zen-grid-item(6,3);
+    @include zen-grid-item(5,3);
   }
   .actions {
     @include zen-clear();
@@ -25,46 +18,18 @@ $zen-gutter-width: 10px;
   @include zen-clear();
   @include zen-grid-item(4,5);
 }
-footer {
+#error, #notice {
   @include zen-clear();
-}
-
-
-// Elements
-$edge-margins: 20px;
-
-// Assuming font-size defaults to 16pt, we can use math to make ems.
-// Found a function here: http://blog.poleteweb.com/pixel-to-em-math-using-sass
-$browser-context: 16pt;
-@mixin pt-to-ems($prop, $pixels, $context: $browser-context) {
-  #{$prop}: #{$pixels/$context}em
-}
-
-@mixin standard-font {
-  font-family: "gillsans", "Arial", sans-serif;
-  @include pt-to-ems(font-size, 18pt);
-  text-align: justify;
-}
-
-body {
-  margin: 0px;
-  font-size: 100%; // Necessary for scaling.
-  line-height: 1.125em; // 18pt; From: http://www.alistapart.com/articles/howtosizetextincss/
-}
-
-.content {
-  margin-left: $edge-margins;
-  margin-right: $edge-margins;
-}
-
-header {
-  text-align: center;
+  @include zen-grid-item(4,5);
+  border: 2px solid red;
+  padding: 1em;
 }
 
 section {
   h1 {
     @include standard-font;
     @include pt-to-ems(font-size, 24pt);
+    text-align: center;
   }
 
   p {
@@ -79,11 +44,16 @@ section {
   input.text {
     @include standard-font;
     @include pt-to-ems(font-size, 24pt);
-    width: 12em;
+    width: 9em;
   }
 }
 
 .form {
+  p {
+    text-align: right;
+    margin: 4px;
+    @include pt-to-ems(font-size, 12pt);
+  }
   .field {
     text-align: right;
   }
@@ -96,11 +66,3 @@ section {
   }
 }
 
-footer {
-  margin-top: 30px;
-  text-align: center;
-
-  a {
-    @include standard-font;
-  }
-}

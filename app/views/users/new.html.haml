@@ -14,6 +14,7 @@
               %li= msg
 
       .field
+        %p= link_to('I already have an account.', :login)
         = f.label :email
         = f.text_field :email, :autofocus => true, :class => :text
       .field
