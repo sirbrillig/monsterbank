@@ -1,26 +1,28 @@
-%h1 Listing monsters
-- if @current_user
-  %h2 Current User: #{@current_user.email}
+%nav.tags
+  %ul
+    - @user.tags.each do |tag|
+      %li= tag.name
 
-%table
-  %tr
-    %th Name
-    %th Level
-    %th Role
-    %th Subrole
-    %th
-    %th
-    %th
-
-  - @monsters.each do |monster|
+%nav.monsters
+  %table
     %tr
-      %td= monster.name
-      %td= monster.level
-      %td= monster.role
-      %td= monster.subrole
-      %td= link_to 'Show', monster
-      %td= link_to 'Edit', edit_monster_path(monster)
-      %td= link_to 'Destroy', monster, method: :delete, data: { confirm: 'Are you sure?' }
+      %th Name
+      %th Level
+      %th Role
+      %th Subrole
+      %th
+      %th
+      %th
+
+    - @monsters.each do |monster|
+      %tr
+        %td= monster.name
+        %td= monster.level
+        %td= monster.role
+        %td= monster.subrole
+        %td= link_to 'Show', monster
+        %td= link_to 'Edit', edit_monster_path(monster)
+        %td= link_to 'Destroy', monster, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 

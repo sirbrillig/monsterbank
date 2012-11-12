@@ -4,7 +4,7 @@ class MonstersController < ApplicationController
   # GET /monsters
   # GET /monsters.json
   def index
-    @current_user = current_user
+    @user = current_user
     @monsters = @current_user.monsters
 
     respond_to do |format|
