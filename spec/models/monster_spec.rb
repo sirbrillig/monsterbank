@@ -20,6 +20,8 @@ describe Monster do
       mon1.role.should eq 'Artillery'
     end
 
+    it "allows creating a Monster without a user"
+
     it "does not validate a blank name" do
       mon = FactoryGirl.build(:level1_soldier)
       mon.name = ''

@@ -8,7 +8,9 @@ describe User do
   it { should have_many(:monsters) }
   it { should have_many(:tags) }
   it { should validate_presence_of(:email) }
-  it { should validate_presence_of(:password) }
+#   it { should validate_presence_of(:password) }
+
+  it "does not require a password to be saved"
 
   describe "#save" do
     it "saves a new User" do

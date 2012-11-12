@@ -20,4 +20,8 @@ describe "User Log In" do
 
     page.should have_content "You are now logged in"
   end
+
+  context "when arriving as a user with no password" do
+    it "displays a sign-up form for the password"
+  end
 end

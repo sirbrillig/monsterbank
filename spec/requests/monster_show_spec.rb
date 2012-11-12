@@ -9,6 +9,18 @@ describe "Monster page" do
     click_button('Log In')
   end
 
+  context "when not logged-in" do
+    context "when the monster is owned by a user" do
+      it "displays a log-in form"
+      
+      it "redirects to the monster view when log-in is complete"
+    end
+
+    context "when the monster is not owned by a user" do
+      it "displays a 'save this monster' form with an email field"
+    end
+  end
+
   context "with a level 1 Artillery Monster" do
     before :each do
       @mon = FactoryGirl.create(:level1_artillery, :user => @user)
