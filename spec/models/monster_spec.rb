@@ -78,13 +78,27 @@ describe Monster do
     end
 
     context "when it has a duplicate name" do
-      it "does not save" do
-        mon1 = FactoryGirl.create(:level1_soldier)
-        mon1.save
-        mon2 = FactoryGirl.create(:level2_artillery)
-        mon2.save
-        mon1.name = mon2.name
-        mon1.should_not be_valid
+      context "and a different user" do
+        it "does save" do
+          user1 = FactoryGirl.create(:user, :email => 'duplicate1@test.com')
+          user2 = FactoryGirl.create(:user, :email => 'duplicate2@test.com')
+          mon1 = FactoryGirl.create(:level1_soldier, :user => user1)
+          mon2 = FactoryGirl.create(:level2_artillery, :user => user2)
+          mon1.name = mon2.name
+          mon1.save
+          mon1.should have(0).errors_on(:name)
+        end
+      end
+
+      context "and the same user" do
+        it "does not save" do
+          user = FactoryGirl.create(:user, :email => 'duplicate@test.com')
+          mon1 = FactoryGirl.create(:level1_soldier, :user => user)
+          mon2 = FactoryGirl.create(:level2_artillery, :user => user)
+          mon1.name = mon2.name
+          mon1.save
+          mon1.should have(1).error_on(:name)
+        end
       end
     end
 

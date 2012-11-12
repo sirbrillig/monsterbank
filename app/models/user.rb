@@ -5,4 +5,5 @@ class User < ActiveRecord::Base
   validates :email, :presence => { :on => :create }, :uniqueness => { :case_sensitive => false }
 
   has_many :monsters, :dependent => :destroy
+  has_many :tags, :dependent => :destroy
 end
