@@ -4,7 +4,7 @@ describe "Monster list" do
 
   before :each do
     @user = FactoryGirl.create(:user)
-    @user2 = FactoryGirl.create(:user, :name => 'mon list user 2')
+    @user2 = FactoryGirl.create(:user, :email=> 'monsterlisttestuser@test.com')
     visit login_path
     fill_in('email', :with => @user.email) 
     fill_in('password', :with => @user.password)
@@ -16,8 +16,8 @@ describe "Monster list" do
     @tag1 = FactoryGirl.create(:tag, :name => 'list tag1', :user => @user)
     @tag2 = FactoryGirl.create(:tag, :name => 'list tag2', :user => @user)
     @tag3 = FactoryGirl.create(:tag, :name => 'list tag3', :user => @user2)
-    @tag1.monsters << mon1 << mon2
-    @tag2.monsters << mon1
+    @tag1.monsters << @mon1 << @mon2
+    @tag2.monsters << @mon1
   end
 
   it "displays Monster attribute headers" do
