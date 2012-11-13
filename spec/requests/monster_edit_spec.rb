@@ -30,6 +30,37 @@ describe "Edit Monster page" do
       page.should have_field('monster[role]', :value => @mon.role)
     end
 
+    it "shows the tag field" do
+      visit edit_monster_path(@mon.id)
+      page.should have_field('new_tag')
+    end
+
+    context "when adding a tag" do
+      before do
+        visit edit_monster_path(@mon.id)
+        fill_in('new_tag', :with => 'mytag')
+        click_button('Add Tag')
+      end
+
+      it "displays the new tag" do
+        page.should have_content "mytag"
+      end
+    end
+
+    context "when deleting a tag" do
+      before do
+        @tag = FactoryGirl.create(:tag, :name => 'deletethistag')
+        @mon.tags << @tag
+        @mon.save
+        visit edit_monster_path(@mon.id)
+        click_link('delete deletethistag')
+      end
+
+      it "removes the tag" do
+        page.should_not have_content "deletethistag"
+      end
+    end
+
     context "when changing the level" do
       before :each do 
         visit edit_monster_path(@mon.id)

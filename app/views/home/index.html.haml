@@ -12,9 +12,9 @@
     %p MonsterBank allows you to focus on the interesting bits. You can invent attacks, effects, and powers  without worrying about the math.
 
   %nav.links1
-    = link_to('Make a New Monster', new_monster_path)
+    = link_to(image_tag('new_monster.png'), new_monster_path)
     - if current_user
-      = link_to('View My Monsters', :monsters)
+      = link_to(image_tag('list_monsters_button.png'), :monsters)
     - else
       = link_to(image_tag('login_button.png'), login_path)
 

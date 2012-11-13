@@ -16,6 +16,10 @@
   = @monster.hp
 
 - if @current_user
+  %aside.tags
+  - @monster.tags.each do |tag|
+    = tag.name
+
   %nav.controls
     = link_to 'Edit', edit_monster_path(@monster)
     \|

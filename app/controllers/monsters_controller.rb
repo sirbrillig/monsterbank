@@ -74,8 +74,14 @@ class MonstersController < ApplicationController
 
     respond_to do |format|
       if @monster.update_attributes(params[:monster])
-        format.html { redirect_to @monster, notice: 'Monster was successfully updated.' }
-        format.json { head :no_content }
+        if params[:new_tag_button] and params[:new_tag]
+          @monster.tags << Tag.create(:name => params[:new_tag], :user => current_user)
+          format.html { render action: "edit" }
+          format.json { head :no_content }
+        else
+          format.html { redirect_to @monster, notice: 'Monster was successfully updated.' }
+          format.json { head :no_content }
+        end
       else
         format.html { render action: "edit" }
         format.json { render json: @monster.errors, status: :unprocessable_entity }

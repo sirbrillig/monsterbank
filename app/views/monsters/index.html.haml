@@ -1,3 +1,5 @@
+= link_to(image_tag('new_monster.png'), new_monster_path)
+
 %nav.tags
   %ul
     - @user.tags.each do |tag|
@@ -23,7 +25,3 @@
         %td= link_to 'Show', monster
         %td= link_to 'Edit', edit_monster_path(monster)
         %td= link_to 'Destroy', monster, method: :delete, data: { confirm: 'Are you sure?' }
-
-%br
-
-= link_to 'New Monster', new_monster_path

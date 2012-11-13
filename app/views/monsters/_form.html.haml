@@ -1,22 +1,32 @@
-= form_for @monster do |f|
-  - if @monster.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@monster.errors.count, "error")} prohibited this monster from being saved:"
-      %ul
-        - @monster.errors.full_messages.each do |msg|
-          %li= msg
+%section
+  = form_for @monster, :html => {:id => 'edit_monster'} do |f|
 
-  .field
-    = f.label :name
-    = f.text_field :name, :autofocus => true
-  .field
-    = f.label :level
-    = f.number_field :level, :value => @monster.level || 1, :min => 1, :max => 30
-  .field
-    = f.label :role
-    = f.select(:role, monster_roles)
-  .field
-    = f.label :subrole
-    = f.select(:subrole, [' ', 'Elite', 'Solo'])
-  .actions
-    = f.submit 'Save'
+    - if @monster.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@monster.errors.count, "error")} prohibited this monster from being saved:"
+        %ul
+          - @monster.errors.full_messages.each do |msg|
+            %li= msg
+
+    .field
+      = f.label :name
+      = f.text_field :name, :autofocus => true, :class => :text
+    .field
+      = f.label :level
+      = f.number_field :level, :value => @monster.level || 1, :min => 1, :max => 30
+    .field
+      = f.label :role
+      = f.select(:role, monster_roles)
+    .field
+      = f.label :subrole
+      = f.select(:subrole, [' ', 'Elite', 'Solo'])
+    .field
+      = f.label :tags
+      = text_field_tag :new_tag, nil, :class => :text
+      = f.submit 'Add Tag', :name => 'new_tag_button'
+    .field
+      - @monster.tags.each do |tag|
+        = tag.name
+        = link_to("delete #{tag.name}", "#", :onclick => "$('edit_monster').submit()") 
+    .actions
+      = f.submit 'Save'
