@@ -7,7 +7,7 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
-    .container
+    .container#container
       %header
         = link_to(image_tag('header.png'), root_url)
       - if flash[:notice]
@@ -17,6 +17,6 @@
         #error
           = flash[:error]
       = yield
-    %footer
+    %footer#footer
       - if current_user
         = link_to 'Log Out', logout_path

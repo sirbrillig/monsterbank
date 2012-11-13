@@ -3,6 +3,9 @@
 $zen-column-count: 12;
 $zen-gutter-width: 10px;
 
+@import "compass/layout/sticky-footer";
+@include sticky-footer(54px, "#container");
+
 // Layout
 .container {
   @include zen-clear();
@@ -17,10 +20,6 @@ $zen-gutter-width: 10px;
 
 header {
   text-align: center;
-}
-
-footer {
-  @include zen-clear();
 }
 
 
@@ -45,8 +44,16 @@ a:hover {
   background-color: white;
   color: $link-color;
 }
+a:visited {
+  color: $link-color;
+}
+
+html {
+  height: 100%;
+}
 
 body {
+  height: 100%;
   margin: 0px;
   font-size: 100%; // Necessary for scaling.
   line-height: 1.125em; // 18pt; From: http://www.alistapart.com/articles/howtosizetextincss/
@@ -57,3 +64,14 @@ body {
   margin-right: $edge-margins;
 }
 
+#footer {
+  background-color: #5b995e;
+  text-align: center;
+  a, a:visited {
+    display: block;
+    color: white;
+  }
+  a:hover {
+    background-color: #5b995e;
+  }
+}
