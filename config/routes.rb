@@ -3,6 +3,7 @@ Monsterbank::Application.routes.draw do
   match '/signout', :to => 'sessions#destroy', :as => :logout
   match '/signin', :to => 'sessions#new', :as => :login
   match '/signup', :to => 'users#new', :as => :signup
+  match '/savemonster', :to => 'users#save_monster', :as => :user_save_monster
 
   get "home/index"
 

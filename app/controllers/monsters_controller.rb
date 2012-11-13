@@ -1,5 +1,5 @@
 class MonstersController < ApplicationController
-  before_filter :authenticate_user
+  before_filter :authenticate_user, :except => [:new, :show, :create]
 
   # GET /monsters
   # GET /monsters.json
@@ -16,7 +16,17 @@ class MonstersController < ApplicationController
   # GET /monsters/1
   # GET /monsters/1.json
   def show
-    @monster = Monster.for_user(current_user).find(params[:id])
+    @current_user = current_user
+    if @current_user
+      @monster = Monster.for_user(@current_user).find(params[:id])
+    else
+      if @monster = Monster.find(params[:id])
+        if @monster.user
+        else
+          @user = User.new
+        end
+      end
+    end
 
     respond_to do |format|
       format.html # show.html.erb
@@ -44,7 +54,7 @@ class MonstersController < ApplicationController
   # POST /monsters.json
   def create
     @monster = Monster.new(params[:monster])
-    @monster.user = current_user
+    @monster.user = current_user if current_user
 
     respond_to do |format|
       if @monster.save
