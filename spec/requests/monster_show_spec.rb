@@ -14,17 +14,16 @@ describe "Monster page" do
         visit monster_path(@mon)
       end
 
-      it "displays a log-in form" do
-        page.should have_field('user[email]')
-        page.should have_field('user[password]')
-        page.should have_button('Log In')
+      it "displays no email field" do
+        page.should_not have_field('user[email]')
       end
-      
-      it "redirects to the monster view when log-in is complete" do
-        fill_in('email', :with => @user.email) 
-        fill_in('password', :with => @user.password)
-        click_button('Log In')
-        page.should have_normal_content "Name: #{@mon.name}"
+
+      it "displays no link to a monster list" do
+        page.should_not have_link_to(monsters_path)
+      end
+
+      it "displays no link to an edit page" do
+        page.should_not have_link_to(edit_monster_path(@mon))
       end
     end
 
@@ -32,12 +31,40 @@ describe "Monster page" do
       before do
         @mon.user = nil
         @mon.save
+        @user = FactoryGirl.build(:user, :email => 'notowninguser@test.com')
         visit monster_path(@mon)
       end
 
       it "displays a 'save this monster' form with an email field" do
         page.should have_field('user[email]')
         page.should have_button('Save')
+      end
+
+      it "brings the user to a sign-up form" do
+        fill_in('user[email]', :with => @user.email)
+        click_button('Save')
+        page.should have_field('user[email]')
+        page.should have_field('user[password]')
+        page.should have_field('user[password_confirmation]')
+        page.should have_button('Save')
+      end
+
+      context "and the form is filled" do
+        before do
+        fill_in('user[email]', :with => @user.email)
+          click_button('Save')
+          fill_in('user[password]', :with => @user.password)
+          fill_in('user[password_confirmation]', :with => @user.password)
+          click_button('Save')
+        end
+
+        it "logs-in the user" do
+          page.should have_link_to(edit_monster_path(@mon))
+        end
+
+        it "returns the user to the monster page" do
+          page.should have_normal_content "Name: #{@mon.name}"
+        end
       end
     end
   end
