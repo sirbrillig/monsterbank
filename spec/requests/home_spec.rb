@@ -39,5 +39,10 @@ describe "Home page" do
     it "displays a logout link" do
       page.should have_link_to logout_path
     end
+
+    it "logs out when clicking the logout link" do
+      click_link('Log Out')
+      page.should have_link_to login_path
+    end
   end
 end
