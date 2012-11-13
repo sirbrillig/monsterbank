@@ -16,7 +16,28 @@ describe "Home page" do
     page.should have_link_to new_monster_path
   end
 
-  it "displays the 'Log In' link" do
-    page.should have_link_to login_path
+  context "when not logged-in" do
+    it "displays the 'Log In' link" do
+      page.should have_link_to login_path
+    end
+  end
+
+  context "when logged-in" do
+    before :each do
+      @user = FactoryGirl.create(:user)
+      visit login_path
+      fill_in('email', :with => @user.email) 
+      fill_in('password', :with => @user.password)
+      click_button('Log In')
+      visit root_url
+    end
+
+    it "displays the 'My Monsters' link" do
+      page.should have_link_to monsters_path
+    end
+
+    it "displays a logout link" do
+      page.should have_link_to logout_path
+    end
   end
 end

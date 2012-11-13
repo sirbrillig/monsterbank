@@ -17,3 +17,6 @@
         #error
           = flash[:error]
       = yield
+    %footer
+      - if current_user
+        = link_to 'Log Out', logout_path
