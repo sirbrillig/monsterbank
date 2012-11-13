@@ -1,5 +1,8 @@
 Monsterbank::Application.routes.draw do
   resources :monsters, :users, :sessions, :tags
+
+  match 'monsters/:id/delete_tag/:tag' => 'monsters#delete_tag'
+
   match '/signout', :to => 'sessions#destroy', :as => :logout
   match '/signin', :to => 'sessions#new', :as => :login
   match '/signup', :to => 'users#new', :as => :signup

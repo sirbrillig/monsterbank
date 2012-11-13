@@ -67,20 +67,18 @@ class MonstersController < ApplicationController
     end
   end
 
-  # PUT /monsters/1
-  # PUT /monsters/1.json
   def update
     @monster = Monster.find(:first, :conditions => { :id => params[:id], :user_id => current_user.id })
 
     respond_to do |format|
       if @monster.update_attributes(params[:monster])
         if params[:new_tag_button] and params[:new_tag]
-          @monster.tags << Tag.create(:name => params[:new_tag], :user => current_user)
-          format.html { render action: "edit" }
+          @monster.tags << Tag.find_or_create_by_name(:name => params[:new_tag], :user => current_user)
+          format.html { redirect_to edit_monster_path(@monster)}
           format.json { head :no_content }
         else
           format.html { redirect_to @monster, notice: 'Monster was successfully updated.' }
-          format.json { head :no_content }
+          format.js
         end
       else
         format.html { render action: "edit" }
@@ -89,8 +87,22 @@ class MonstersController < ApplicationController
     end
   end
 
-  # DELETE /monsters/1
-  # DELETE /monsters/1.json
+  def delete_tag
+    @monster = Monster.find(:first, :conditions => { :id => params[:id], :user_id => current_user.id })
+
+    respond_to do |format|
+      tag = Tag.find(:first, :conditions => {:id => params[:tag], :user_id => current_user.id})
+      if @monster and tag
+        @monster.tags.delete(tag)
+        format.html { render action: "edit" }
+        format.js
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @monster.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def destroy
     @monster = Monster.find(:first, :conditions => { :id => params[:id], :user_id => current_user.id })
     @monster.destroy

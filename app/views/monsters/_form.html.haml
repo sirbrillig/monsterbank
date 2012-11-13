@@ -1,6 +1,9 @@
 %section
-  = form_for @monster, :html => {:id => 'edit_monster'} do |f|
+  = form_for(@monster, :remote => true) do |f|
+    .field#tag_list
+      = render 'tag_list'
 
+  = form_for(@monster, :html => {:id => 'edit_monster'}) do |f|
     - if @monster.errors.any?
       #error_explanation
         %h2= "#{pluralize(@monster.errors.count, "error")} prohibited this monster from being saved:"
@@ -24,9 +27,5 @@
       = f.label :tags
       = text_field_tag :new_tag, nil, :class => :text
       = f.submit 'Add Tag', :name => 'new_tag_button'
-    .field
-      - @monster.tags.each do |tag|
-        = tag.name
-        = link_to("delete #{tag.name}", "#", :onclick => "$('edit_monster').submit()") 
     .actions
       = f.submit 'Save'
