@@ -8,10 +8,10 @@ describe "Monster page" do
 
     context "and the monster is owned by a user" do
       before do
-        @user = FactoryGirl.create(:user)
+        @user = FactoryGirl.create(:user, :email => 'owninguser@test.com')
         @mon.user = @user
         @mon.save
-        visit monster_path(@mon.id)
+        visit monster_path(@mon)
       end
 
       it "displays a log-in form" do
@@ -32,7 +32,7 @@ describe "Monster page" do
       before do
         @mon.user = nil
         @mon.save
-        visit monster_path(@mon.id)
+        visit monster_path(@mon)
       end
 
       it "displays a 'save this monster' form with an email field" do
@@ -58,14 +58,14 @@ describe "Monster page" do
       end
 
       it "displays Monster name, level, and role" do
-        visit monster_path(@mon.id)
+        visit monster_path(@mon)
         page.should have_normal_content "Name: #{@mon.name}"
         page.should have_normal_content "Level: #{@mon.level}"
         page.should have_normal_content "Role: #{@mon.role}"
       end
 
       it "displays Monster XP" do
-        visit monster_path(@mon.id)
+        visit monster_path(@mon)
         page.should have_normal_content "XP: 100"
       end
     end
@@ -76,12 +76,12 @@ describe "Monster page" do
       end
 
       it "displays Elite subrole" do
-        visit monster_path(@mon.id)
+        visit monster_path(@mon)
         page.should have_normal_content 'Role: Elite Artillery'
       end
 
       it "displays double XP for a Elite" do
-        visit monster_path(@mon.id)
+        visit monster_path(@mon)
         page.should have_normal_content 'XP: 200'
       end
     end

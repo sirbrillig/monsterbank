@@ -13,10 +13,10 @@ describe "Home page" do
   end
 
   it "displays the 'Make a Monster' button" do
-    page.should have_link('', {src: new_monster_path})
+    page.should have_link_to new_monster_path
   end
 
   it "displays the 'Log In' link" do
-    page.should have_link('', {src: login_path})
+    page.should have_link_to login_path
   end
 end

@@ -8,19 +8,13 @@ describe User do
   it { should have_many(:monsters) }
   it { should have_many(:tags) }
   it { should validate_presence_of(:email) }
+  it { should validate_presence_of(:password) }
 
   describe "#save" do
     it "saves a new User" do
       @user.save
       user2 = User.find_by_email(@user.email)
       user2.should eq @user
-    end
-
-    it "does not require a password" do
-      user = FactoryGirl.build(:user, :email => 'testforpassword@test.com')
-      user.password = user.password_confirmation = nil
-      user.save
-      user.should have(0).errors
     end
   end
 

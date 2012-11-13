@@ -54,7 +54,7 @@ describe "Monster list" do
 
   it "has a button to add a monster" do
     visit monsters_path
-    page.should have_link('add a monster')
+    page.should have_link_to new_monster_path
   end
 end
 

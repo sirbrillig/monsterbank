@@ -11,3 +11,9 @@ RSpec::Matchers.define :have_normal_content do |expected|
     "expected not to find content '#{expected}' in normalized text '#{actual.text.squish}'"
   end
 end
+
+RSpec::Matchers.define :have_link_to do |expected|
+  match do |actual|
+    actual.has_xpath?("//a[@href=\"#{expected}\"]")
+  end
+end
