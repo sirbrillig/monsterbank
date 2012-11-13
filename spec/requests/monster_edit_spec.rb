@@ -131,7 +131,7 @@ describe "Edit Monster page" do
     end
 
     it "fails if the name is a duplicate" do
-      mon = FactoryGirl.create(:monster)
+      mon = FactoryGirl.create(:monster, :user => @user)
       fill_in('monster[name]', :with => mon.name)
       click_button('Save')
       page.should have_field('monster[name]')
