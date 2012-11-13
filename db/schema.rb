@@ -32,9 +32,11 @@ ActiveRecord::Schema.define(:version => 20121112061156) do
   end
 
   create_table "monsters_tags", :id => false, :force => true do |t|
-    t.integer "tag_id"
     t.integer "monster_id"
+    t.integer "tag_id"
   end
+
+  add_index "monsters_tags", ["monster_id", "tag_id"], :name => "index_monsters_tags_on_monster_id_and_tag_id"
 
   create_table "tags", :force => true do |t|
     t.string   "name"
