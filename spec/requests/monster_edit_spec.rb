@@ -49,8 +49,9 @@ describe "Edit Monster page" do
 
     context "when deleting a tag" do
       before do
-        @tag = FactoryGirl.create(:tag, :name => 'deletethistag')
-        @mon.tags << @tag
+        @tag1 = FactoryGirl.create(:tag, :name => 'deletethistag', :user => @user)
+        @tag2 = FactoryGirl.create(:tag, :name => 'untouchedtag', :user => @user)
+        @mon.tags << @tag1 << @tag2
         @mon.save
         visit edit_monster_path(@mon.id)
         click_link('delete deletethistag')
@@ -58,6 +59,10 @@ describe "Edit Monster page" do
 
       it "removes the tag" do
         page.should_not have_content "deletethistag"
+      end
+
+      it "leaves other tags untouched" do
+        page.should have_content "untouchedtag"
       end
     end
 
