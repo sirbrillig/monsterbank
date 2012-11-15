@@ -1,8 +1,6 @@
 class MonstersController < ApplicationController
   before_filter :authenticate_user, :except => [:new, :show, :create]
 
-  # GET /monsters
-  # GET /monsters.json
   def index
     @user = current_user
     @monsters = @current_user.monsters
@@ -13,8 +11,6 @@ class MonstersController < ApplicationController
     end
   end
 
-  # GET /monsters/1
-  # GET /monsters/1.json
   def show
     @current_user = current_user
     if @current_user
@@ -34,8 +30,6 @@ class MonstersController < ApplicationController
     end
   end
 
-  # GET /monsters/new
-  # GET /monsters/new.json
   def new
     @monster = Monster.new
 
@@ -45,13 +39,10 @@ class MonstersController < ApplicationController
     end
   end
 
-  # GET /monsters/1/edit
   def edit
     @monster = Monster.for_user(current_user).find(params[:id]) # Note that this creates a JOIN and is therefore ReadOnly.
   end
 
-  # POST /monsters
-  # POST /monsters.json
   def create
     @monster = Monster.new(params[:monster])
     @monster.user = current_user if current_user
@@ -75,10 +66,9 @@ class MonstersController < ApplicationController
         if params[:new_tag_button] and params[:new_tag]
           @monster.tags << Tag.find_or_create_by_name(:name => params[:new_tag], :user => current_user)
           format.html { redirect_to edit_monster_path(@monster)}
-          format.json { head :no_content }
+          format.js
         else
           format.html { redirect_to @monster, notice: 'Monster was successfully updated.' }
-          format.js
         end
       else
         format.html { render action: "edit" }

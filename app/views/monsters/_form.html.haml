@@ -1,7 +1,6 @@
 %section
-  = form_for(@monster, :remote => true) do |f|
-    .field#tag_list
-      = render 'tag_list'
+  .field#tag_list
+    = render 'tag_list'
 
   = form_for(@monster, :html => {:id => 'edit_monster'}) do |f|
     - if @monster.errors.any?
@@ -23,9 +22,11 @@
     .field
       = f.label :subrole
       = f.select(:subrole, [' ', 'Elite', 'Solo'])
-    .field
+    .actions
+      = f.submit 'Save'
+
+  = form_for(@monster, :remote => true) do |f|
+    .field#tag_form
       = f.label :tags
       = text_field_tag :new_tag, nil, :class => :text
       = f.submit 'Add Tag', :name => 'new_tag_button'
-    .actions
-      = f.submit 'Save'
