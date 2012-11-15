@@ -103,6 +103,16 @@ class MonstersController < ApplicationController
     end
   end
 
+  def star
+    @monster = Monster.find(:first, :conditions => { :id => params[:id], :user_id => current_user.id })
+    @monster.starred = !@monster.starred
+    @monster.save
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
   def authenticate_user
     return redirect_to :login unless current_user

@@ -1,0 +1,12 @@
+- if monster.starred
+  %td= link_to(image_tag('star.png'), "/monsters/#{monster.id}/star", :id => "unstar_monster_#{monster.id}", :remote => true)
+- else
+  %td= link_to(image_tag('unstar.png'), "/monsters/#{monster.id}/star", :id => "star_monster_#{monster.id}", :remote => true)
+%td= monster.name
+%td= monster.level
+%td= monster.role
+%td= monster.subrole
+%td= link_to 'Show', monster
+%td= link_to 'Edit', edit_monster_path(monster)
+%td= link_to 'Destroy', monster, method: :delete, data: { confirm: 'Are you sure?' }
+
