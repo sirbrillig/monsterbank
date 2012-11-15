@@ -28,6 +28,17 @@ describe Tag do
       tag2 = Tag.find_by_name('my monsters two')
       tag2.should_not be_nil
     end
+
+    context "when it has a duplicate name and the same user" do
+      it "does not save" do
+        user = FactoryGirl.create(:user, :email => 'duplicatetag@test.com')
+        tag1 = FactoryGirl.create(:tag, :name => 'duplicatetag1', :user => user)
+        tag2 = FactoryGirl.create(:tag, :name => 'duplicatetag2', :user => user)
+        tag2.name = tag1.name
+        tag2.save
+        tag2.should have(1).error_on(:name)
+      end
+    end
   end
 
   describe "#save" do
@@ -59,10 +70,9 @@ describe Tag do
         it "does not save" do
           user = FactoryGirl.create(:user, :email => 'duplicatetag@test.com')
           tag1 = FactoryGirl.create(:tag, :name => 'duplicatetag1', :user => user)
-          tag2 = FactoryGirl.create(:tag, :name => 'duplicatetag2', :user => user)
-          tag1.name = tag2.name
-          tag1.save
-          tag1.should have(1).error_on(:name)
+          tag2 = FactoryGirl.build(:tag, :name => 'duplicatetag1', :user => user)
+          tag2.save
+          tag2.should have(1).error_on(:name)
         end
       end
     end
