@@ -25,8 +25,9 @@
     .actions
       = f.submit 'Save'
 
-  = form_for(@monster, :remote => true) do |f|
-    .field#tag_form
-      = f.label :tags
-      = text_field_tag :new_tag, nil, :class => :text
-      = f.submit 'Add Tag', :name => 'new_tag_button'
+  - unless @monster.new_record?
+    = form_for(@monster, :remote => true) do |f|
+      .field#tag_form
+        = f.label :tags
+        = text_field_tag :new_tag, nil, :class => :text
+        = f.submit 'Add Tag', :name => 'new_tag_button'
