@@ -159,6 +159,39 @@ describe Monster do
       @mon1.role.should eq 'Soldier'
       @mon2.role.should eq @mon1.role
     end
+
+    context "and removes its tag" do
+      before do
+        @tag = FactoryGirl.create(:tag)
+        @tag.monsters << @mon1
+        @tag.save
+      end
+
+      context "when the tag has other monsters" do
+        before do
+          @mon2 = FactoryGirl.create(:monster, :name => 'removetagmonster')
+          @tag.monsters << @mon2
+          @tag.save
+          @tag.monsters.delete(@mon)
+          @tag.save
+        end
+
+        it "does not remove the tag" do
+          Tag.all.should include(@tag)
+        end
+      end
+
+      context "when the tag has no other monsters" do
+        before do
+          @tag.monsters.delete(@mon)
+          @tag.save
+        end
+
+        it "removes the tag" do
+          Tag.all.should_not include(@tag)
+        end
+      end
+    end
   end
 
   describe "#destroy" do
@@ -180,12 +213,29 @@ describe Monster do
     end
 
     context "when the monster is tagged" do
-      it "does not remove the tag" do
-        mon = FactoryGirl.create(:monster, :name => 'test owning tag')
-        tag = FactoryGirl.create(:tag)
-        tag.monsters << mon
-        mon.destroy
-        tag.should_not be_nil
+      context "and there are more monsters with that tag" do
+        it "does not remove the tag" do
+          user = FactoryGirl.create(:user)
+          mon = FactoryGirl.create(:monster, :name => 'test owning tag 1', :user => user)
+          mon2 = FactoryGirl.create(:monster, :name => 'test owning tag 2', :user => user)
+          tag = FactoryGirl.create(:tag, :user => user)
+          tag.monsters << mon << mon2
+          tag.save
+          mon.destroy
+          Tag.all.should include(tag)
+        end
+      end
+      
+      context "and there are no other monsters with that tag" do
+        it "removes the tag" do
+          user = FactoryGirl.create(:user)
+          mon = FactoryGirl.create(:monster, :name => 'test owning tag 1', :user => user)
+          tag = FactoryGirl.create(:tag, :user => user)
+          tag.monsters << mon
+          tag.save
+          mon.destroy
+          Tag.all.should_not include(tag)
+        end
       end
     end
   end

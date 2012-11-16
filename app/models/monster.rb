@@ -1,7 +1,9 @@
 class Monster < ActiveRecord::Base
   has_and_belongs_to_many :tags, :uniq => true
-  belongs_to :user
+  # Destroy the tag if there are no more monsters.
+  before_destroy { |monster| monster.tags.each {|tag| tag.destroy if tag.monsters.size == 1} }
 
+  belongs_to :user
   scope :for_user, lambda { |user| joins(:user).where("user_id = ?", user.id) }
 
   attr_accessible :level, :name, :role, :subrole
