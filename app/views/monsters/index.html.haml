@@ -1,12 +1,12 @@
-= link_to(image_tag('new_monster.png'), new_monster_path)
+%nav.actions= link_to(image_tag('new_monster.png'), new_monster_path)
 
 %nav.tags
+  %h1 Tags
   %ul
     - @user.tags.each do |tag|
-      %li= tag.name
+      %li= link_to(tag.name, "/tag/#{tag.name}")
 
 %nav.monsters
-  %ul
-    - @monsters.each do |monster|
-      %li{:id => "monster_summary_#{monster.id}"}
-        = render(:partial => 'monster_summary', :locals => { :monster => monster })
+  - @monsters.each do |monster|
+    %section.monster_summary{:id => "monster_summary_#{monster.id}"}
+      = render(:partial => 'monster_summary', :locals => { :monster => monster })

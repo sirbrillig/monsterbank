@@ -1,11 +1,16 @@
-- if monster.starred
-  %span= link_to(image_tag('star.png', :id => "star_#{monster.id}"), "/monsters/#{monster.id}/star", :id => "star_monster_#{monster.id}", :remote => true)
-- else
-  %span= link_to(image_tag('unstar.png', :id => "star_#{monster.id}"), "/monsters/#{monster.id}/star", :id => "star_monster_#{monster.id}", :remote => true)
-%span!= "<strong>#{monster.name}</strong>"
-%span= "Level #{monster.level} #{monster.subrole} #{monster.role}"
-%span.actions
-  = link_to 'Show', monster
-  = link_to 'Edit', edit_monster_path(monster)
-  = link_to 'Destroy', monster, method: :delete, data: { confirm: 'Are you sure?' }
-
+%section.monster_name
+  - if monster.starred
+    %span= link_to(image_tag('star.png', :id => "star_#{monster.id}"), "/monsters/#{monster.id}/star", :id => "star_monster_#{monster.id}", :remote => true)
+  - else
+    %span= link_to(image_tag('unstar.png', :id => "star_#{monster.id}"), "/monsters/#{monster.id}/star", :id => "star_monster_#{monster.id}", :remote => true)
+  %span!= "<strong>#{monster.name}</strong>"
+%section.monster_actions
+  %span= "Level #{monster.level} #{monster.subrole} #{monster.role}"
+  %span.actions
+    = link_to 'Show', monster
+    = link_to 'Edit', edit_monster_path(monster)
+    = link_to 'Destroy', monster, method: :delete, data: { confirm: 'Are you sure?' }
+%section.monster_tags
+  %span.tags
+    - monster.tags.each do |tag|
+      = link_to(tag.name, '#')

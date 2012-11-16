@@ -1,0 +1,52 @@
+@import "application.css.scss";
+
+nav.actions {
+  @include zen-grid-item(3,3);
+  padding: 0px;
+}
+nav.tags h1 {
+  @include zen-grid-item(2,1);
+}
+nav.tags ul {
+  @include zen-clear();
+  @include zen-grid-item(2,1);
+}
+nav.monsters {
+  @include zen-grid-item(7,3);
+}
+
+.tags {
+  ul {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+  }
+
+  li {
+    @include standard-font;
+    margin-bottom: 10px;
+  }
+
+  a {
+    @include standard-font;
+    background-image: url('tag.png');
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    padding-left: 18px;
+    padding-right: 10px;
+  }
+}
+
+.monsters {
+  .actions {
+    @include standard-font;
+  }
+
+  section.monster_summary {
+    margin-bottom: 1em;
+  }
+
+  span {
+    float: none;
+  }
+}

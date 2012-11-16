@@ -1,24 +1,23 @@
-.content
-  %section.content1
-    %h1 Making Monsters Easy
-    %p One of the most challenging aspects of planning a Dungeons and Dragons game is making Monsters. There are a lot of complicated rules about Ability scores, Hit Points, and Armor Class, but what you really want to do is just make something cool.
+%section.content1
+  %h1 Making Monsters Easy
+  %p One of the most challenging aspects of planning a Dungeons and Dragons game is making Monsters. There are a lot of complicated rules about Ability scores, Hit Points, and Armor Class, but what you really want to do is just make something cool.
 
-  %section.content3
-    %h1 Here When You Want
-    %p Making Monsters is great, but we keep them here for you too. You can tag your creations by type or by campaign (or any way you want) and then view them all together. We even make it easy to see them on a tablet or phone.
+%section.content3
+  %h1 Here When You Want
+  %p Making Monsters is great, but we keep them here for you too. You can tag your creations by type or by campaign (or any way you want) and then view them all together. We even make it easy to see them on a tablet or phone.
 
-  %section.content2
-    %h1 You Do the Cool Stuff
-    %p MonsterBank allows you to focus on the interesting bits. You can invent attacks, effects, and powers  without worrying about the math.
+%section.content2
+  %h1 You Do the Cool Stuff
+  %p MonsterBank allows you to focus on the interesting bits. You can invent attacks, effects, and powers  without worrying about the math.
 
-  %nav.links1
-    = link_to(image_tag('new_monster.png'), new_monster_path)
-    - if current_user
-      = link_to(image_tag('list_monsters_button.png'), :monsters)
-    - else
-      = link_to(image_tag('login_button.png'), login_path)
+%nav.links1
+  = link_to(image_tag('new_monster.png'), new_monster_path)
+  - if current_user
+    = link_to(image_tag('list_monsters_button.png'), :monsters)
+  - else
+    = link_to(image_tag('login_button.png'), login_path)
 
-  %section.content4
-    %h1 Paper is Cool Too
-    %p If you don't run your game from a laptop or tablet, we make it easy to print your Monsters or make them into PDFs to share with friends.
+%section.content4
+  %h1 Paper is Cool Too
+  %p If you don't run your game from a laptop or tablet, we make it easy to print your Monsters or make them into PDFs to share with friends.
 
