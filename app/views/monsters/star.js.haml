@@ -1,1 +1,4 @@
-!= "$('#monster_summary_#{@monster.id}').html('#{escape_javascript render(:partial => 'monster_summary', :locals => {:monster => @monster})}');"
+- if @monster.starred
+  != "$('#star_#{@monster.id}').attr('src', 'assets/star.png');"
+- else
+  != "$('#star_#{@monster.id}').attr('src', 'assets/unstar.png');"

@@ -6,9 +6,7 @@
       %li= tag.name
 
 %nav.monsters
-  %table
-    %tr
-
+  %ul
     - @monsters.each do |monster|
-      %tr{:id => "monster_summary_#{monster.id}"}
+      %li{:id => "monster_summary_#{monster.id}"}
         = render(:partial => 'monster_summary', :locals => { :monster => monster })

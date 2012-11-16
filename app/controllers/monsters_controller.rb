@@ -109,6 +109,7 @@ class MonstersController < ApplicationController
     @monster.save
 
     respond_to do |format|
+      format.html { redirect_to monsters_url }
       format.js
     end
   end

@@ -36,25 +36,27 @@ describe "Edit Monster page" do
     end
 
     context "when adding a tag" do
-      before do
-        visit edit_monster_path(@mon.id)
-        fill_in('new_tag', :with => 'mytag')
-        click_button('Add Tag')
-      end
-
-      it "displays the new tag" do
-        page.should have_content "mytag"
-      end
-
-      context "and the new tag is identical to an old tag" do
+      context "to an existing monster" do
         before do
           visit edit_monster_path(@mon.id)
           fill_in('new_tag', :with => 'mytag')
           click_button('Add Tag')
         end
 
-        it "should not add a new tag" do
-          page.should have_css('span.tag_item', :count => 1)
+        it "displays the new tag" do
+          page.should have_content "mytag"
+        end
+
+        context "and the new tag is identical to an old tag" do
+          before do
+            visit edit_monster_path(@mon.id)
+            fill_in('new_tag', :with => 'mytag')
+            click_button('Add Tag')
+          end
+
+          it "should not add a new tag" do
+            page.should have_css('span.tag_item', :count => 1)
+          end
         end
       end
     end

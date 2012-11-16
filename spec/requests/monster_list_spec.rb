@@ -54,8 +54,7 @@ describe "Monster list" do
     end
     
     it "changes the button to unstar" do
-#       visit monsters_path #FIXME: this is done via ajax and shouldn't need a reload
-      page.should have_css("#unstar_monster_#{@mon1.id}")
+      page.find("#star_#{@mon1.id}")['src'].should match /[^n]star/
     end
 
     it "sets the monster to starred" do
@@ -69,12 +68,11 @@ describe "Monster list" do
       @mon1.starred = true
       @mon1.save
       visit monsters_path
-      click_link("unstar_monster_#{@mon1.id}")
+      click_link("star_monster_#{@mon1.id}")
     end
 
     it "changes the button to a star" do
-#       visit monsters_path #FIXME: this is done via ajax and shouldn't need a reload
-      page.should have_css("#star_monster_#{@mon1.id}")
+      page.find("#star_#{@mon1.id}")['src'].should match /unstar/
     end
 
     it "sets the monster to unstarred" do
