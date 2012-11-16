@@ -3,6 +3,10 @@
 %nav.tags
   %h1 Tags
   %ul
+    - if @tag
+      %li= link_to('All Monsters', monsters_path)
+    - else
+      %li.selected= link_to('All Monsters', monsters_path)
     - @user.tags.each do |tag|
       - if @tag and @tag == tag
         %li.selected= link_to(tag.name, tag_path(tag))

@@ -34,4 +34,8 @@ describe "Tag list" do
   it "does not list a monster with that tag belonging to another user" do
     page.should_not have_content @mon3.name
   end
+
+  it "shows a link to the full monster list" do
+    page.should have_link_to monsters_path
+  end
 end
