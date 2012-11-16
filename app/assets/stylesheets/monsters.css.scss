@@ -55,3 +55,20 @@ nav.monsters {
     float: none;
   }
 }
+
+form#edit_monster {
+  @include zen-grid-item(6, 4);
+
+  label {
+    @include pt-to-ems(font-size, 16pt);
+  }
+}
+
+#tag_form {
+  @include zen-clear();
+  @include zen-grid-item(6, 4);
+
+  label {
+    @include pt-to-ems(font-size, 16pt);
+  }
+}
