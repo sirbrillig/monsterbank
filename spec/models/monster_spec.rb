@@ -172,7 +172,7 @@ describe Monster do
           @mon2 = FactoryGirl.create(:monster, :name => 'removetagmonster')
           @tag.monsters << @mon2
           @tag.save
-          @tag.monsters.delete(@mon)
+          @tag.remove_monster(@mon1)
           @tag.save
         end
 
@@ -183,7 +183,7 @@ describe Monster do
 
       context "when the tag has no other monsters" do
         before do
-          @tag.monsters.delete(@mon)
+          @tag.remove_monster(@mon1)
           @tag.save
         end
 

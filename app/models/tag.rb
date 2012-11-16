@@ -7,4 +7,8 @@ class Tag < ActiveRecord::Base
   scope :for_user, lambda { |user| joins(:user).where("user_id = ?", user.id) }
 
   validates :name, :presence => true, :uniqueness => { :case_sensitive => false, :scope => :user_id }
+
+  def remove_monster(monster)
+    destroy if monsters.delete(monster) and monsters.empty?
+  end
 end

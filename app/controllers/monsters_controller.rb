@@ -83,7 +83,7 @@ class MonstersController < ApplicationController
     respond_to do |format|
       tag = Tag.find(:first, :conditions => {:id => params[:tag], :user_id => current_user.id})
       if @monster and tag
-        @monster.tags.delete(tag)
+        tag.remove_monster(@monster)
         format.html { render action: "edit" }
         format.js
       else
