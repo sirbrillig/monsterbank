@@ -35,6 +35,11 @@ nav.monsters {
     padding-left: 18px;
     padding-right: 10px;
   }
+
+  li.selected a {
+    background-color: green;
+    color: white;
+  }
 }
 
 .monsters {

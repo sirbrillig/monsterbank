@@ -4,9 +4,12 @@
   %h1 Tags
   %ul
     - @user.tags.each do |tag|
-      %li= link_to(tag.name, "/tag/#{tag.name}")
+      - if @tag and @tag == tag
+        %li.selected= link_to(tag.name, tag_path(tag))
+      - else
+        %li= link_to(tag.name, tag_path(tag))
 
 %nav.monsters
   - @monsters.each do |monster|
     %section.monster_summary{:id => "monster_summary_#{monster.id}"}
-      = render(:partial => 'monster_summary', :locals => { :monster => monster })
+      = render(:partial => '/monsters/monster_summary', :locals => { :monster => monster })
