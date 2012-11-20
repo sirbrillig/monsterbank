@@ -11,6 +11,17 @@ class MonstersController < ApplicationController
     end
   end
 
+  def starred
+    @user = current_user
+    @monsters = @current_user.monsters.select { |monster| monster.starred }
+    @starred = true
+
+    respond_to do |format|
+      format.html { render 'index' }
+      format.json { render json: @monsters }
+    end
+  end
+
   def show
     @current_user = current_user
     if @current_user

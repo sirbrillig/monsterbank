@@ -1,17 +1,22 @@
 %nav.actions= link_to(image_tag('new_monster.png'), new_monster_path)
 
 %nav.tags
-  %h1 Tags
   %ul
     - if @tag
       %li= link_to('All Monsters', monsters_path)
+      %li.starred= link_to('Starred', starred_path)
+    - elsif @starred
+      %li= link_to('All Monsters', monsters_path)
+      %li.starred.selected= link_to('Starred', starred_path)
     - else
       %li.selected= link_to('All Monsters', monsters_path)
+      %li.starred= link_to('Starred', starred_path)
+
     - @user.tags.each do |tag|
       - if @tag and @tag == tag
-        %li.selected= link_to(tag.name, tag_path(tag))
+        %li.tag.selected= link_to(tag.name, tag_path(tag))
       - else
-        %li= link_to(tag.name, tag_path(tag))
+        %li.tag= link_to(tag.name, tag_path(tag))
 
 %nav.monsters
   - @monsters.each do |monster|
