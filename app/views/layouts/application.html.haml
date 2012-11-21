@@ -9,7 +9,9 @@
   %body
     .container#container
       %header
-        = link_to(image_tag('header.png'), root_url)
+        = link_to(image_tag('monsterbank_logo.png'), root_url)
+        %nav.actions= link_to(image_tag('new_monster.png'), new_monster_path)
+
       - if flash[:notice]
         #notice
           = flash[:notice]

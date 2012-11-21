@@ -2,14 +2,7 @@
 
 $selected-tag-color: #949291;
 
-nav.actions {
-  @include zen-grid-item(3,3);
-  padding: 0px;
-}
-nav.tags h1 {
-  @include zen-grid-item(2,1);
-}
-nav.tags ul {
+nav.tags {
   @include zen-clear();
   @include zen-grid-item(2,1);
 }
@@ -17,11 +10,13 @@ nav.monsters {
   @include zen-grid-item(7,3);
 }
 
-.tags {
+nav.tags {
   ul {
     margin: 0px;
     padding: 0px;
     list-style: none;
+    border-right: 1px solid #000;
+    height: 400px; // FIXME: how to get this to go from the header to the footer?
   }
 
   li {

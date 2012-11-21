@@ -4,7 +4,6 @@ $zen-column-count: 12;
 $zen-gutter-width: 10px;
 
 @import "compass/layout/sticky-footer";
-@include sticky-footer(54px, "#container");
 
 // Layout
 .container {
@@ -17,15 +16,21 @@ $zen-gutter-width: 10px;
   border: 2px solid red;
   padding: 1em;
 }
-
 header {
-  text-align: center;
+  nav.actions {
+    @include zen-grid-item(3,10);
+    padding: 0px;
+  }
 }
-
 
 // Elements
 $edge-margins: 20px;
 $link-color: #000;
+$header-height: 80px;
+$footer-height: 54px;
+$header-spacing: 20px;
+
+@include sticky-footer($footer-height, "#container");
 
 // Assuming font-size defaults to 16pt, we can use math to make ems.
 // Found a function here: http://blog.poleteweb.com/pixel-to-em-math-using-sass
@@ -38,6 +43,18 @@ $browser-context: 16pt;
   font-family: "gillsans", "Arial", sans-serif;
   @include pt-to-ems(font-size, 18pt);
   text-align: justify;
+}
+
+
+header {
+  text-align: left;
+  background-image: url('header_background.png');
+  height: $header-height;
+
+  img {
+    padding-top: $header-height - image-height('monsterbank_logo.png') - $edge-margins;
+    padding-left: $edge-margins;
+  }
 }
 
 a {
@@ -67,16 +84,17 @@ body {
 .content {
   margin-left: $edge-margins;
   margin-right: $edge-margins;
+  margin-top: $header-spacing;
 }
 
 #footer {
-  background-color: #5b995e;
-  text-align: center;
+  background-image: url('header_background.png');
   a, a:visited {
+    @include standard-font;
+    @include pt-to-ems(font-size, 14pt);
+    text-align: center;
+    padding-top: $footer-height / 2 - 14px;
     display: block;
     color: white;
-  }
-  a:hover {
-    background-color: #5b995e;
   }
 }
