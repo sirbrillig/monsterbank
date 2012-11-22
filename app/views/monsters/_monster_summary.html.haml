@@ -4,13 +4,12 @@
   - else
     %span= link_to(image_tag('unstar.png', :id => "star_#{monster.id}"), "/monsters/#{monster.id}/star", :id => "star_monster_#{monster.id}", :remote => true)
   %span!= "<strong>#{monster.name}</strong>"
-%section.monster_actions
+%section.monster_level
   %span= "Level #{monster.level} #{monster.subrole} #{monster.role}"
-  %span.actions
-    = link_to 'Show', monster
-    = link_to 'Edit', edit_monster_path(monster)
-    = link_to 'Destroy', monster, method: :delete, data: { confirm: 'Are you sure?' }
 %section.monster_tags
-  %span.tags
-    - monster.tags.each do |tag|
-      = link_to(tag.name, tag_path(tag))
+  - monster.tags.each do |tag|
+    = link_to(tag.name, tag_path(tag))
+%section.monster_stats
+  %div!= "<strong>HP</strong> #{monster.hp}; <strong>Bloodied</strong> #{monster.bloodied}"
+  %div!= "<strong>AC</strong> #{monster.ac}; <strong>Fort</strong> #{monster.fortitude}; <strong>Ref</strong> #{monster.reflex}; <strong>Will</strong> #{monster.will}"
+  %div!= "<strong>Speed</strong> #{monster.speed}"

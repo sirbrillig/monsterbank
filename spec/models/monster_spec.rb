@@ -429,4 +429,31 @@ describe Monster do
     end
   end
 
+  describe "#bloodied" do
+    it "returns half the HP" do
+      mon = FactoryGirl.create(:monster, :name => 'testbloodied')
+      mon.bloodied.should eq (mon.hp / 2.0).floor
+    end
+  end
+
+  describe "#ac" do
+    it "returns the appropriate AC"
+  end
+
+  describe "#fortitude" do
+    it "returns the appropriate Fort defense"
+  end
+
+  describe "#will" do
+    it "returns the appropriate Will defense"
+  end
+
+  describe "#reflex" do
+    it "returns the appropriate Reflex defense"
+  end
+
+  describe "#speed" do
+    it "returns the speed"
+  end
+
 end # Monster

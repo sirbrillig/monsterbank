@@ -148,4 +148,23 @@ class Monster < ActiveRecord::Base
     total
   end
 
+  def bloodied
+    (hp / 2.0).floor
+  end
+
+  def ac
+  end
+
+  def reflex
+  end
+
+  def will
+  end
+
+  def fortitude
+  end
+
+  def speed
+  end
+
 end
