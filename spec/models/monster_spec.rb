@@ -437,7 +437,59 @@ describe Monster do
   end
 
   describe "#ac" do
-    it "returns the appropriate AC"
+    context "for a Skirmisher" do
+      before do
+        @mon.role = 'Skirmisher'
+      end
+      it "returns Level + 14" do
+        @mon.ac.should eq (@mon.level + 14)
+      end
+    end
+
+    context "for a Brute" do
+      before do
+        @mon.role = 'Brute'
+      end
+      it "returns Level + 12" do
+        @mon.ac.should eq (@mon.level + 12)
+      end
+    end
+
+    context "for a Soldier" do
+      before do
+        @mon.role = 'Soldier'
+      end
+      it "returns Level + 16" do
+        @mon.ac.should eq (@mon.level + 16)
+      end
+    end
+
+    context "for a Lurker" do
+      before do
+        @mon.role = 'Lurker'
+      end
+      it "returns Level + 14" do
+        @mon.ac.should eq (@mon.level + 14)
+      end
+    end
+
+    context "for a Controller" do
+      before do
+        @mon.role = 'Controller'
+      end
+      it "returns Level + 14" do
+        @mon.ac.should eq (@mon.level + 14)
+      end
+    end
+
+    context "for a Artillery" do
+      before do
+        @mon.role = 'Artillery'
+      end
+      it "returns Level + 12" do
+        @mon.ac.should eq (@mon.level + 12)
+      end
+    end
   end
 
   describe "#fortitude" do
