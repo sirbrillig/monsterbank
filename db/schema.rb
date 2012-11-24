@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121112061156) do
+ActiveRecord::Schema.define(:version => 20121124201017) do
 
   create_table "monsters", :force => true do |t|
     t.string   "name"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(:version => 20121112061156) do
     t.string   "high_ability"
     t.boolean  "starred"
     t.integer  "user_id"
+    t.string   "speed"
   end
 
   create_table "monsters_tags", :id => false, :force => true do |t|

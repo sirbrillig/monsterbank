@@ -8,6 +8,7 @@ class Monster < ActiveRecord::Base
 
   attr_accessible :level, :name, :role, :subrole
   attr_accessible :str, :con, :dex, :int, :wis, :cha, :high_ability, :starred
+  attr_accessible :speed
 
   validates :name, :presence => true, :uniqueness => { :case_sensitive => false, :scope => :user_id }
   validates :role, :presence => true, :inclusion => { :in => [ 'Artillery', 'Brute', 'Controller', 'Lurker', 'Minion', 'Skirmisher', 'Soldier' ] }
@@ -153,18 +154,39 @@ class Monster < ActiveRecord::Base
   end
 
   def ac
+    bonus = case self.role
+    when 'Skirmisher' then 14
+    when 'Brute' then 12
+    when 'Soldier' then 16
+    when 'Lurker' then 14
+    when 'Controller' then 14
+    when 'Artillery' then 12
+    else 0
+    end
+
+    self.level + bonus
   end
 
   def reflex
+    self.level + 12
   end
 
   def will
+    self.level + 12
   end
 
   def fortitude
+    self.level + 12
+  end
+
+  # This is again unecessary, except that adding the getter appears to require
+  # adding the setter as well.
+  def speed=(speed)
+    @speed = speed
   end
 
   def speed
+    @speed || 6
   end
 
 end

@@ -493,19 +493,33 @@ describe Monster do
   end
 
   describe "#fortitude" do
-    it "returns the appropriate Fort defense"
+    it "returns the level + 12" do
+      @mon.fortitude.should eq (@mon.level + 12)
+    end
   end
 
   describe "#will" do
-    it "returns the appropriate Will defense"
+    it "returns the level + 12" do
+      @mon.fortitude.should eq (@mon.level + 12)
+    end
   end
 
   describe "#reflex" do
-    it "returns the appropriate Reflex defense"
+    it "returns the level + 12" do
+      @mon.fortitude.should eq (@mon.level + 12)
+    end
   end
 
   describe "#speed" do
-    it "returns the speed"
+    it "returns 6 if no speed is set" do
+      @mon.speed = nil
+      @mon.speed.should eq 6
+    end
+
+    it "returns whatever is set" do
+      @mon.speed = 8
+      @mon.speed.should eq 8
+    end
   end
 
 end # Monster
