@@ -72,6 +72,10 @@ nav.tags {
       strong {
         font-weight: normal;
       }
+
+      .monster_xp {
+        float: right;
+      }
     }
 
     section.monster_tags {
@@ -106,4 +110,9 @@ form#edit_monster {
   label {
     @include pt-to-ems(font-size, 16pt);
   }
+}
+
+.monster_summary span.edit_link {
+  display: block;
+  text-align: center;
 }

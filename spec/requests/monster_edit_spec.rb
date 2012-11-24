@@ -68,15 +68,15 @@ describe "Edit Monster page" do
         @mon.tags << @tag1 << @tag2
         @mon.save
         visit edit_monster_path(@mon.id)
-        click_link('delete deletethistag')
+        within("#delete_#{@tag1.name}") { click_link('X') }
       end
 
       it "removes the tag" do
-        page.should_not have_content "deletethistag"
+        page.should_not have_css("#delete_#{@tag1.name}")
       end
 
       it "leaves other tags untouched" do
-        page.should have_content "untouchedtag"
+        page.should have_css("#delete_#{@tag2.name}")
       end
     end
 

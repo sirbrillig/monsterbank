@@ -1,5 +1,5 @@
 - @monster.tags.each do |tag|
-  %span.tag_item
+  %span.tag_item{:id => "delete_#{tag.name}"}
     = tag.name
-    = link_to("delete #{tag.name}", "/monsters/#{@monster.id}/delete_tag/#{tag.id}", :remote => true)
+    = link_to("X", "/monsters/#{@monster.id}/delete_tag/#{tag.id}", :remote => true)
 

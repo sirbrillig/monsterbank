@@ -4,6 +4,7 @@
   - else
     %span= link_to(image_tag('unstar.png', :id => "star_#{monster.id}"), "/monsters/#{monster.id}/star", :id => "star_monster_#{monster.id}", :remote => true)
   %span!= "<strong>#{monster.name}</strong>"
+  %span.monster_xp!= "<strong>XP</strong> #{monster.xp}"
 %section.monster_level
   %span= "Level #{monster.level} #{monster.subrole} #{monster.role}"
 %section.monster_tags
@@ -13,3 +14,5 @@
   %div!= "<strong>HP</strong> #{monster.hp}; <strong>Bloodied</strong> #{monster.bloodied}"
   %div!= "<strong>AC</strong> #{monster.ac}; <strong>Fort</strong> #{monster.fortitude}; <strong>Ref</strong> #{monster.reflex}; <strong>Will</strong> #{monster.will}"
   %div!= "<strong>Speed</strong> #{monster.speed}"
+- if @monsters
+  = link_to(content_tag(:span, "Edit", :class => 'edit_link'), edit_monster_path(monster.id))

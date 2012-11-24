@@ -63,6 +63,17 @@ describe "Monster list" do
     end
   end
 
+  context "when the monster is clicked" do
+    before do
+      visit monsters_path
+      within("#monster_summary_#{@mon1.id}") { click_link('Edit') }
+    end
+
+    it "loads the edit page" do
+      page.should have_field('monster[level]', :value => @mon1.level)
+    end
+  end
+
   context "when the unstar button is clicked" do
     before do
       @mon1.starred = true
@@ -78,6 +89,18 @@ describe "Monster list" do
     it "sets the monster to unstarred" do
       @mon1.reload
       @mon1.starred.should eq false
+    end
+  end
+
+  context "when the monster is level 7" do
+    before do
+      @mon1.level = 7
+      @mon1.subrole = nil
+      visit monsters_path
+    end
+
+    it "shows the experience value of 300" do
+      page.should have_normal_content "XP 300"
     end
   end
 end
