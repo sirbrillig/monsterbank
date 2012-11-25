@@ -1,4 +1,4 @@
-%section
+%section.edit_monster_area
   .field#tag_list
     = render 'tag_list'
 
@@ -15,19 +15,21 @@
       .form_element= f.text_field :name, :autofocus => true, :class => :text
     .field
       .form_label= f.label :level
-      .form_element= f.number_field :level, :value => @monster.level || 1, :min => 1, :max => 30
+      .form_element= f.number_field :level, :value => @monster.level || 1, :min => 1, :max => 30, :class => :text
     .field
       .form_label= f.label :role
       .form_element= f.select(:role, monster_roles)
     .field
       .form_label= f.label :subrole
       .form_element= f.select(:subrole, [' ', 'Elite', 'Solo'])
-    .actions
-      = f.submit 'Save'
+    %nav.edit_monster_actions
+      = f.submit 'Save this Monster', :class => :text
+      - unless @monster.new_record?
+        = button_to "Delete this Monster", @monster, :method => :delete, :class => :text
 
   - unless @monster.new_record?
     = form_for(@monster, :remote => true) do |f|
       .field#tag_form
-        .form_label= f.label :new_tag
+        .form_label= f.label :Add_Tag
         .form_element= text_field_tag :new_tag, nil, :class => :text
         = f.submit 'Add Tag', :name => 'new_tag_button'

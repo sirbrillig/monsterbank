@@ -1,7 +1,7 @@
 @import "application.css.scss";
 
 $selected-tag-color: #949291;
-$monster-width: 427px;
+$monster-width: 300px;
 $monster-background-color: #bbb8b6;
 $monster-heading-color: #fff;
 $monster-heading-background-color: #3a3a3a;
@@ -13,11 +13,37 @@ nav.tags {
   @include zen-grid-item(2,1);
 }
 nav.monsters {
-  @include zen-grid-item(7,3);
+  @include zen-grid-item(4,3);
 }
-section.edit_monster_page {
-  @include zen-grid-item(10,2);
+
+.edit_monster_page {
+  section.monster_summary {
+    @include zen-grid-item(4, 2);
+  }
+
+  nav.edit_monster_actions {
+    @include zen-clear();
+    @include zen-grid-item(3, 8);
+  }
 }
+
+section.edit_monster_area {
+  @include zen-grid-item(6, 6);
+
+  label {
+    @include pt-to-ems(font-size, 16pt);
+  }
+}
+
+#tag_form {
+  @include zen-clear();
+  @include zen-grid-item(6, 4);
+
+  label {
+    @include pt-to-ems(font-size, 16pt);
+  }
+}
+
 
 nav.tags {
   ul {
@@ -62,10 +88,13 @@ nav.tags {
     @include pt-to-ems(font-size, 14pt);
     width: $monster-width;
     background-color: $monster-background-color;
+    padding: 0px;
     margin-bottom: 1em;
 
     section {
       padding: 2px;
+      padding-left: 4px;
+      padding-right: 4px;
     }
 
     section.monster_name {
@@ -95,23 +124,6 @@ nav.tags {
         background-color: darken($monster-tag-background-color, 30%);
       }
     }
-  }
-}
-
-form#edit_monster {
-  @include zen-grid-item(6, 4);
-
-  label {
-    @include pt-to-ems(font-size, 16pt);
-  }
-}
-
-#tag_form {
-  @include zen-clear();
-  @include zen-grid-item(6, 4);
-
-  label {
-    @include pt-to-ems(font-size, 16pt);
   }
 }
 

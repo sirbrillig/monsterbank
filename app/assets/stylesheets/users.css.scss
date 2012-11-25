@@ -41,6 +41,12 @@ section {
     @include pt-to-ems(font-size, 24pt);
   }
 
+  select {
+    @include standard-font;
+    @include pt-to-ems(font-size, 24pt);
+    width: 9em;
+  }
+
   input.text {
     @include standard-font;
     @include pt-to-ems(font-size, 24pt);
