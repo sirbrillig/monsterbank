@@ -24,12 +24,13 @@
       .form_element= f.select(:subrole, [' ', 'Elite', 'Solo'])
     %nav.edit_monster_actions
       = f.submit 'Save this Monster', :class => :text
-      - unless @monster.new_record?
-        = button_to "Delete this Monster", @monster, :method => :delete, :class => :text
+  %nav.edit_monster_actions
+    - unless @monster.new_record?
+      = button_to "Delete this Monster", @monster, :method => :delete, :class => :text
 
   - unless @monster.new_record?
     = form_for(@monster, :remote => true) do |f|
       .field#tag_form
         .form_label= f.label :Add_Tag
         .form_element= text_field_tag :new_tag, nil, :class => :text
-        = f.submit 'Add Tag', :name => 'new_tag_button'
+        = f.submit 'Add', :name => 'new_tag_button'

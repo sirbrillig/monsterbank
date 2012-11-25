@@ -40,7 +40,7 @@ describe "Edit Monster page" do
         before do
           visit edit_monster_path(@mon.id)
           fill_in('new_tag', :with => 'mytag')
-          click_button('Add Tag')
+          click_button('Add')
         end
 
         it "displays the new tag" do
@@ -51,7 +51,7 @@ describe "Edit Monster page" do
           before do
             visit edit_monster_path(@mon.id)
             fill_in('new_tag', :with => 'mytag')
-            click_button('Add Tag')
+            click_button('Add')
           end
 
           it "should not add a new tag" do
@@ -87,32 +87,32 @@ describe "Edit Monster page" do
       end
 
       it "redirects to the show page" do
-        click_button('Save')
+        click_button('Save this Monster')
         page.should_not have_field('monster[level]')
       end
 
       it "updates the level" do
-        click_button('Save')
+        click_button('Save this Monster')
         page.should have_normal_content "Level: 12"
       end
 
       it "fails if the level is 0" do
         fill_in('monster[level]', :with => 0)
-        click_button('Save')
+        click_button('Save this Monster')
         page.should have_field('monster[level]')
         page.should have_content 'Level must be greater than'
       end
 
       it "fails if the level is greater than 30" do
         fill_in('monster[level]', :with => 100)
-        click_button('Save')
+        click_button('Save this Monster')
         page.should have_field('monster[level]')
         page.should have_content 'Level must be less than'
       end
 
       it "fails if the level is negative" do
         fill_in('monster[level]', :with => -5)
-        click_button('Save')
+        click_button('Save this Monster')
         page.should have_field('monster[level]')
         page.should have_content 'Level must be greater than'
       end
@@ -125,12 +125,12 @@ describe "Edit Monster page" do
       end
 
       it "redirects to the show page" do
-        click_button('Save')
+        click_button('Save this Monster')
         page.should_not have_field('monster[role]')
       end
 
       it "updates the role" do
-        click_button('Save')
+        click_button('Save this Monster')
         page.should have_normal_content 'Role: Skirmisher'
       end
     end
@@ -142,12 +142,12 @@ describe "Edit Monster page" do
       end
 
       it "redirects to the show page" do
-        click_button('Save')
+        click_button('Save this Monster')
         page.should_not have_field('monster[subrole]')
       end
 
       it "updates the subrole to Elite" do
-        click_button('Save')
+        click_button('Save this Monster')
         page.should have_normal_content 'Role: Elite'
       end
     end
@@ -159,12 +159,12 @@ describe "Edit Monster page" do
       end
 
       it "redirects to the show page" do
-        click_button('Save')
+        click_button('Save this Monster')
         page.should_not have_field('monster[subrole]')
       end
 
       it "updates the subrole to Elite" do
-        click_button('Save')
+        click_button('Save this Monster')
         page.should have_normal_content 'Role: Elite'
       end
     end
@@ -176,18 +176,18 @@ describe "Edit Monster page" do
       end
 
       it "redirects to the show page" do
-        click_button('Save')
+        click_button('Save this Monster')
         page.should_not have_field('monster[name]')
       end
 
       it "updates the name" do
-        click_button('Save')
+        click_button('Save this Monster')
         page.should have_normal_content "Name: testmonster_name_change_"
       end
 
       it "fails if the name is blank" do
         fill_in('monster[name]', :with => "")
-        click_button('Save')
+        click_button('Save this Monster')
         page.should have_field('monster[name]')
         page.should have_content "Name can't be blank"
       end
@@ -195,7 +195,7 @@ describe "Edit Monster page" do
       it "fails if the name is a duplicate" do
         mon = FactoryGirl.create(:monster, :user => @user)
         fill_in('monster[name]', :with => mon.name)
-        click_button('Save')
+        click_button('Save this Monster')
         page.should have_field('monster[name]')
         page.should have_content "Name has already been taken"
       end
@@ -204,7 +204,7 @@ describe "Edit Monster page" do
     context "when deleting a Monster" do
       it "should confirm the deletion" do
         visit edit_monster_path(@mon.id)
-        click_button('Delete This Monster')
+        click_button('Delete this Monster')
         page.should have_content "has been deleted"
       end
     end
