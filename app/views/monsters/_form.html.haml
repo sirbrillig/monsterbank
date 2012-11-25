@@ -1,7 +1,4 @@
 %section.edit_monster_area
-  .field#tag_list
-    = render 'tag_list'
-
   = form_for(@monster, :html => {:id => 'edit_monster'}) do |f|
     - if @monster.errors.any?
       #error_explanation
@@ -28,9 +25,13 @@
     - unless @monster.new_record?
       = button_to "Delete this Monster", @monster, :method => :delete, :class => :text
 
-  - unless @monster.new_record?
+- unless @monster.new_record?
+  %section#tag_form
+    .field#tag_list
+      = render 'tag_list'
+
     = form_for(@monster, :remote => true) do |f|
-      .field#tag_form
+      .field
         .form_label= f.label :Add_Tag
         .form_element= text_field_tag :new_tag, nil, :class => :text
         = f.submit 'Add', :name => 'new_tag_button'

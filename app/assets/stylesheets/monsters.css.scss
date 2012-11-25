@@ -37,10 +37,18 @@ section.edit_monster_area {
 
 #tag_form {
   @include zen-clear();
-  @include zen-grid-item(6, 4);
+  @include zen-grid-item(3, 6);
 
   label {
     @include pt-to-ems(font-size, 16pt);
+  }
+
+  input.text {
+    width: 60%;
+  }
+  
+  input {
+    float: left;
   }
 }
 
