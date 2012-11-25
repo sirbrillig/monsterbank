@@ -123,7 +123,10 @@ class Monster < ActiveRecord::Base
     when 28 then 13000
     when 29 then 15000
     when 30 then 19000
-    else raise "Level #{self.level} is not within a valid range for XP"
+    else return 0
+    # When editing, we now display the Monster, but the display will fail if
+    # this exception is raised.
+#     else raise "Level #{self.level} is not within a valid range for XP"
     end
 
     base_xp /= 4.0 if self.role == 'Minion'
