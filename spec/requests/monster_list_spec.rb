@@ -96,6 +96,7 @@ describe "Monster list" do
     before do
       @mon1.level = 7
       @mon1.subrole = nil
+      @mon1.save
       visit monsters_path
     end
 
