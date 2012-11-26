@@ -77,6 +77,27 @@ a:visited {
   color: $link-color;
 }
 
+input.text {
+  @include standard-font;
+  width: 9em;
+  width: 60%;
+}
+
+input {
+  float: left;
+}
+
+label {
+  @include standard-font;
+  @include pt-to-ems(font-size, 16pt);
+}
+
+select {
+  @include standard-font;
+  @include pt-to-ems(font-size, 24pt);
+  width: 9em;
+}
+
 html {
   height: 100%;
 }
