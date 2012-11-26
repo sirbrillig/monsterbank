@@ -277,8 +277,8 @@ describe Monster do
       Monster.new(:name => 'testmonster', :level => 28, :role => 'Artillery', :subrole => 'Solo').xp.should eq 65000
     end
 
-    it "generates an error for a level 100 monster" do
-      lambda { Monster.new(:name => 'testmonster', :level => 100, :role => 'Artillery').xp}.should raise_error(RuntimeError, /valid range for XP/)
+    it "returns 0 for a level 100 monster" do
+      Monster.new(:name => 'testmonster', :level => 100, :role => 'Artillery').xp.should eq 0
     end
   end
 
@@ -349,6 +349,20 @@ describe Monster do
       @mon.level = 5
       @mon.high_ability = :str
       @mon.default_score_for(:str).should eq 18
+    end
+  end
+
+  describe "#high_ability" do
+    context "when set to any Ability" do
+      before do
+        @mon.high_ability = :dex
+        @mon.save
+      end
+
+      it "saves with that ability" do
+        mon2 = Monster.find(@mon.id)
+        mon2.high_ability.to_s.should eq :dex.to_s
+      end
     end
   end
 
@@ -493,20 +507,78 @@ describe Monster do
   end
 
   describe "#fortitude" do
-    it "returns the level + 12" do
-      @mon.fortitude.should eq (@mon.level + 12)
+    context "when the high ability is set to dex" do
+      before do
+        @mon.high_ability = :dex
+        @mon.save
+        @mon.reload
+      end
+      it "returns the level + 12" do
+        @mon.fortitude.should eq (@mon.level + 12)
+      end
+    end
+
+    context "when the high ability is set to str" do
+      before do
+        @mon.high_ability = :str
+        @mon.save
+        @mon.reload
+      end
+      it "returns the level + 16" do
+        @mon.fortitude.should eq (@mon.level + 16)
+      end
     end
   end
 
   describe "#will" do
-    it "returns the level + 12" do
-      @mon.fortitude.should eq (@mon.level + 12)
+    context "when the high ability is set to dex" do
+      before do
+        @mon.high_ability = :dex
+        @mon.save
+        @mon.reload
+      end
+
+      it "returns the level + 12" do
+        @mon.will.should eq (@mon.level + 12)
+      end
+    end
+
+    context "when the high ability is set to wis" do
+      before do
+        @mon.high_ability = :wis
+        @mon.save
+        @mon.reload
+      end
+
+      it "returns the level + 16" do
+        @mon.will.should eq (@mon.level + 16)
+      end
     end
   end
 
   describe "#reflex" do
-    it "returns the level + 12" do
-      @mon.fortitude.should eq (@mon.level + 12)
+    context "when the high ability is set to wis" do
+      before do
+        @mon.high_ability = :wis
+        @mon.save
+        @mon.reload
+      end
+
+      it "returns the level + 12" do
+        @mon.reflex.should eq (@mon.level + 12)
+      end
+    end
+
+    context "when the high ability is set to dex" do
+      before do
+        @mon.high_ability = :dex
+        @mon.save
+        @mon.reload
+      end
+
+      it "returns the level + 16" do
+        @mon.reflex.should eq (@mon.level + 16)
+      end
     end
   end
 

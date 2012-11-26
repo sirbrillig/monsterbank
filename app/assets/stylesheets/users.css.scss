@@ -18,12 +18,6 @@
   @include zen-clear();
   @include zen-grid-item(4,5);
 }
-#error, #notice {
-  @include zen-clear();
-  @include zen-grid-item(4,5);
-  border: 2px solid red;
-  padding: 1em;
-}
 
 section {
   h1 {

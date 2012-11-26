@@ -79,7 +79,7 @@ class MonstersController < ApplicationController
           format.html { redirect_to edit_monster_path(@monster)}
           format.js
         else
-          format.html { redirect_to @monster, notice: 'Monster was successfully updated.' }
+          format.html { redirect_to edit_monster_path(@monster), notice: 'Monster was successfully updated.' }
         end
       else
         format.html { render action: "edit" }

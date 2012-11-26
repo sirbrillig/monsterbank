@@ -3,6 +3,14 @@
 $zen-column-count: 12;
 $zen-gutter-width: 10px;
 
+// Elements
+$edge-margins: 20px;
+$link-color: #000;
+$header-height: 80px;
+$footer-height: 54px;
+$header-spacing: 20px;
+$notice-background-color: #bbb8b6;
+
 @import "compass/layout/sticky-footer";
 
 // Layout
@@ -11,10 +19,10 @@ $zen-gutter-width: 10px;
   @include zen-grid-container;
 }
 #error, #notice {
-  @include zen-clear();
-  @include zen-grid-item(4,5);
-  border: 2px solid red;
-  padding: 1em;
+  background-color: $notice-background-color;
+  width: 100%;
+  padding: 4px;
+  text-align: center;
 }
 header {
   nav.actions {
@@ -22,13 +30,6 @@ header {
     padding: 0px;
   }
 }
-
-// Elements
-$edge-margins: 20px;
-$link-color: #000;
-$header-height: 80px;
-$footer-height: 54px;
-$header-spacing: 20px;
 
 @include sticky-footer($footer-height, "#container");
 

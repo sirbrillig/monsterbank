@@ -14,6 +14,8 @@ class Monster < ActiveRecord::Base
   validates :role, :presence => true, :inclusion => { :in => [ 'Artillery', 'Brute', 'Controller', 'Lurker', 'Minion', 'Skirmisher', 'Soldier' ] }
   validates :subrole, :inclusion => { :allow_blank => true, :in => [ 'Elite', 'Solo' ] }
   validates :level, :presence => true, :numericality => { :only_integer => true, :greater_than => 0, :less_than => 31 }
+  # FIXME: this is... not working as intended
+#   validates :high_ability, :inclusion => {in: ['str', 'con', 'int', 'dex', 'wis', 'cha'], message: "'%{value}' is not a valid ability"}, :allow_nil => true
 
   # will these work with the default accessors below?
   validates :str, :numericality => { :only_integer => true, :greater_than => -30, :less_than => 40 }
@@ -171,15 +173,27 @@ class Monster < ActiveRecord::Base
   end
 
   def reflex
-    self.level + 12
+    if high_ability
+      self.level + ([:int, :dex].include?(high_ability.to_sym) ? 16 : 12)
+    else
+      self.level + 12
+    end
   end
 
   def will
-    self.level + 12
+    if high_ability
+      self.level + ([:wis, :cha].include?(high_ability.to_sym) ? 16 : 12)
+    else
+      self.level + 12
+    end
   end
 
   def fortitude
-    self.level + 12
+    if high_ability
+      self.level + ([:str, :con].include?(high_ability.to_sym) ? 16 : 12)
+    else
+      self.level + 12
+    end
   end
 
   # This is again unecessary, except that adding the getter appears to require
