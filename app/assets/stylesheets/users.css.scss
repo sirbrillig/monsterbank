@@ -1,68 +1,71 @@
 @import "application.css.scss";
 
-.description {
-  @include zen-clear();
-  @include zen-grid-item(3,5);
-}
-.form {
-  .field {
+section#content_users {
+
+  .description {
     @include zen-clear();
-    @include zen-grid-item(5,3);
+    @include zen-grid-item(3,5);
   }
-  .actions {
+  .form {
+    .field {
+      @include zen-clear();
+      @include zen-grid-item(5,3);
+    }
+    .actions {
+      @include zen-clear();
+      @include zen-grid-item(5,4);
+    }
+  }
+  #error_explanation {
     @include zen-clear();
-    @include zen-grid-item(5,4);
+    @include zen-grid-item(4,5);
   }
+
+  section {
+    h1 {
+      @include standard-font;
+      @include pt-to-ems(font-size, 24pt);
+      text-align: center;
+    }
+
+    p {
+      @include standard-font;
+    }
+
+    label {
+      @include standard-font;
+      @include pt-to-ems(font-size, 24pt);
+    }
+
+    select {
+      @include standard-font;
+      @include pt-to-ems(font-size, 24pt);
+      width: 9em;
+    }
+
+    input.text {
+      @include standard-font;
+      @include pt-to-ems(font-size, 24pt);
+      width: 9em;
+    }
+  }
+
+  .form {
+    p {
+      text-align: right;
+      margin: 4px;
+      @include pt-to-ems(font-size, 12pt);
+    }
+    .field {
+      text-align: right;
+    }
+    .actions {
+      text-align: center;
+      @include pt-to-ems(font-size, 24pt);
+    }
+    .field_with_errors {
+      display: inline;
+    }
+  }
+
 }
-#error_explanation {
-  @include zen-clear();
-  @include zen-grid-item(4,5);
-}
-
-section {
-  h1 {
-    @include standard-font;
-    @include pt-to-ems(font-size, 24pt);
-    text-align: center;
-  }
-
-  p {
-    @include standard-font;
-  }
-
-  label {
-    @include standard-font;
-    @include pt-to-ems(font-size, 24pt);
-  }
-
-  select {
-    @include standard-font;
-    @include pt-to-ems(font-size, 24pt);
-    width: 9em;
-  }
-
-  input.text {
-    @include standard-font;
-    @include pt-to-ems(font-size, 24pt);
-    width: 9em;
-  }
-}
-
-.form {
-  p {
-    text-align: right;
-    margin: 4px;
-    @include pt-to-ems(font-size, 12pt);
-  }
-  .field {
-    text-align: right;
-  }
-  .actions {
-    text-align: center;
-    @include pt-to-ems(font-size, 24pt);
-  }
-  .field_with_errors {
-    display: inline;
-  }
-}
-

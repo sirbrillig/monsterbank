@@ -1,27 +1,29 @@
-.content
+%section#content_users
 
-  %section.description
-    %h1 Signing Up is Also Easy
-    %p You need enter only an email address and choose a password to get started.
+  .content
 
-  %section.form
-    = form_for @user do |f|
-      - if @user.errors.any?
-        #error_explanation
-          %h2= "#{pluralize(@user.errors.count, "error")} prohibited this user from being saved:"
-          %ul
-            - @user.errors.full_messages.each do |msg|
-              %li= msg
+    %section.description
+      %h1 Signing Up is Also Easy
+      %p You need enter only an email address and choose a password to get started.
 
-      .field
-        %p= link_to('I already have an account.', :login)
-        = f.label :email
-        = f.text_field :email, :autofocus => true, :class => :text
-      .field
-        = f.label :password
-        = f.password_field :password, :class => :text
-      .field
-        = f.label :password_confirmation, :class => :text
-        = f.password_field :password_confirmation, :class => :text
-      .actions
-        = f.submit 'Sign Up', :type => :image, :src => 'assets/signup_button.png'
+    %section.form
+      = form_for @user do |f|
+        - if @user.errors.any?
+          #error_explanation
+            %h2= "#{pluralize(@user.errors.count, "error")} prohibited this user from being saved:"
+            %ul
+              - @user.errors.full_messages.each do |msg|
+                %li= msg
+
+        .field
+          %p= link_to('I already have an account.', :login)
+          = f.label :email
+          = f.text_field :email, :autofocus => true, :class => :text
+        .field
+          = f.label :password
+          = f.password_field :password, :class => :text
+        .field
+          = f.label :password_confirmation, :class => :text
+          = f.password_field :password_confirmation, :class => :text
+        .actions
+          = f.submit 'Sign Up', :type => :image, :src => 'assets/signup_button.png'

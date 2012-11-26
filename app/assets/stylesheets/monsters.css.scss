@@ -8,15 +8,20 @@ $monster-heading-background-color: #3a3a3a;
 $monster-tag-color: #fff;
 $monster-tag-background-color: #a09e9c;
 
-nav.tags {
-  @include zen-clear();
-  @include zen-grid-item(2,1);
-}
-nav.monsters {
-  @include zen-grid-item(4,3);
+section#content_monsters_list {
+
+  nav.tags {
+    @include zen-clear();
+    @include zen-grid-item(2,1);
+  }
+  nav.monsters {
+    @include zen-grid-item(4,3);
+  }
+
 }
 
-.edit_monster_page {
+section#content_monsters_edit {
+
   section.monster_summary {
     @include zen-grid-item(4, 2);
   }
@@ -25,31 +30,32 @@ nav.monsters {
     @include zen-clear();
     @include zen-grid-item(3, 8);
   }
-}
 
-section.edit_monster_area {
-  @include zen-grid-item(6, 6);
+  section.edit_monster_area {
+    @include zen-grid-item(6, 6);
 
-  label {
-    @include pt-to-ems(font-size, 16pt);
-  }
-}
-
-#tag_form {
-  @include zen-clear();
-  @include zen-grid-item(3, 6);
-
-  label {
-    @include pt-to-ems(font-size, 16pt);
+    label {
+      @include pt-to-ems(font-size, 16pt);
+    }
   }
 
-  input.text {
-    width: 60%;
+  #tag_form {
+    @include zen-clear();
+    @include zen-grid-item(3, 6);
+
+    label {
+      @include pt-to-ems(font-size, 16pt);
+    }
+
+    input.text {
+      width: 60%;
+    }
+    
+    input {
+      float: left;
+    }
   }
-  
-  input {
-    float: left;
-  }
+
 }
 
 
@@ -90,7 +96,7 @@ nav.tags {
   }
 }
 
-.monsters, .edit_monster_page {
+.monsters, #content_monsters_edit {
   section.monster_summary {
     @include standard-font;
     @include pt-to-ems(font-size, 14pt);

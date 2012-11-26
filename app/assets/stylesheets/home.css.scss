@@ -1,33 +1,36 @@
 @import "application.css.scss";
 
-.content1 {
-  @include zen-grid-item(4,1);
-}
-.content2 {
-  @include zen-clear();
-  @include zen-grid-item(4,1);
-}
-.content3 {
-  @include zen-grid-item(4,9);
-}
-.content4 {
-  @include zen-grid-item(4,9);
-}
-.links1 {
-  @include zen-grid-item(4,5);
-}
+section#content_home {
 
-
-.links1 {
-  a {
-    @include standard-font;
-    font-weight: bold;
-    display: block;
-    text-align: center;
-    line-height: 2em;
+  .content1 {
+    @include zen-grid-item(4,1);
   }
-  a:hover {
-    background-color: white;
+  .content2 {
+    @include zen-clear();
+    @include zen-grid-item(4,1);
   }
-}
+  .content3 {
+    @include zen-grid-item(4,9);
+  }
+  .content4 {
+    @include zen-grid-item(4,9);
+  }
+  .links1 {
+    @include zen-grid-item(4,5);
+  }
 
+
+  .links1 {
+    a {
+      @include standard-font;
+      font-weight: bold;
+      display: block;
+      text-align: center;
+      line-height: 2em;
+    }
+    a:hover {
+      background-color: white;
+    }
+  }
+
+}

@@ -1,22 +1,23 @@
-%nav.tags
-  %ul
-    - if @tag
-      %li= link_to('All Monsters', monsters_path)
-      %li.starred= link_to('Starred', starred_path)
-    - elsif @starred
-      %li= link_to('All Monsters', monsters_path)
-      %li.starred.selected= link_to('Starred', starred_path)
-    - else
-      %li.selected= link_to('All Monsters', monsters_path)
-      %li.starred= link_to('Starred', starred_path)
-
-    - @user.tags.each do |tag|
-      - if @tag and @tag == tag
-        %li.tag.selected= link_to(tag.name, tag_path(tag))
+%section#content_monsters_list
+  %nav.tags
+    %ul
+      - if @tag
+        %li= link_to('All Monsters', monsters_path)
+        %li.starred= link_to('Starred', starred_path)
+      - elsif @starred
+        %li= link_to('All Monsters', monsters_path)
+        %li.starred.selected= link_to('Starred', starred_path)
       - else
-        %li.tag= link_to(tag.name, tag_path(tag))
+        %li.selected= link_to('All Monsters', monsters_path)
+        %li.starred= link_to('Starred', starred_path)
 
-%nav.monsters
-  - @monsters.each do |monster|
-    %section.monster_summary{:id => "monster_summary_#{monster.id}"}
-      = render(:partial => '/monsters/monster_summary', :locals => { :monster => monster })
+      - @user.tags.each do |tag|
+        - if @tag and @tag == tag
+          %li.tag.selected= link_to(tag.name, tag_path(tag))
+        - else
+          %li.tag= link_to(tag.name, tag_path(tag))
+
+  %nav.monsters
+    - @monsters.each do |monster|
+      %section.monster_summary{:id => "monster_summary_#{monster.id}"}
+        = render(:partial => '/monsters/monster_summary', :locals => { :monster => monster })
