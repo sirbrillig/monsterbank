@@ -18,6 +18,18 @@
       - if flash[:error]
         #error
           = flash[:error]
+      - if @user and @user.errors.any?
+        #error_explanation
+          %h2= "#{pluralize(@user.errors.count, "error")} prohibited this user from being saved:"
+          %ul
+            - @user.errors.full_messages.each do |msg|
+              %li= msg
+      - if @monster and @monster.errors.any?
+        #error_explanation
+          %h2= "#{pluralize(@monster.errors.count, "error")} prohibited this monster from being saved:"
+          %ul
+            - @monster.errors.full_messages.each do |msg|
+              %li= msg
       .content
         = yield
     %footer#footer

@@ -16,10 +16,6 @@ section#content_users {
       @include zen-grid-item(5,4);
     }
   }
-  #error_explanation {
-    @include zen-clear();
-    @include zen-grid-item(4,5);
-  }
 
   section {
     h1 {

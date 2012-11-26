@@ -31,13 +31,6 @@
     %section.save_monster
       %h1 Save this Monster for Later
       = form_for(@user, :url => user_save_monster_path(:monid => @monster.id)) do |f|
-        - if @user.errors.any?
-          #error_explanation
-            %h2= "#{pluralize(@user.errors.count, "error")} found regarding this email address:"
-            %ul
-              - @user.errors.full_messages.each do |msg|
-                %li= msg
-
         .field
           = f.label :email
           = f.text_field :email, :autofocus => true, :class => :text

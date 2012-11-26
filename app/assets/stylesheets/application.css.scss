@@ -24,6 +24,12 @@ $notice-background-color: #bbb8b6;
   padding: 4px;
   text-align: center;
 }
+#error_explanation {
+  background-color: $notice-background-color;
+  width: 100%;
+  padding: 4px;
+  text-align: left;
+}
 header {
   nav.actions {
     @include zen-grid-item(3,10);

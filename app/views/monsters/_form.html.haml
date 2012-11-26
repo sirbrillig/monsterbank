@@ -1,12 +1,5 @@
 %section.edit_monster_area
   = form_for(@monster, :html => {:id => 'edit_monster'}) do |f|
-    - if @monster.errors.any?
-      #error_explanation
-        %h2= "#{pluralize(@monster.errors.count, "error")} prohibited this monster from being saved:"
-        %ul
-          - @monster.errors.full_messages.each do |msg|
-            %li= msg
-
     .field
       .form_label= f.label :name
       .form_element= f.text_field :name, :autofocus => true, :class => :text
