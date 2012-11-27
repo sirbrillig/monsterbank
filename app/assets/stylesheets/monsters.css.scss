@@ -23,7 +23,7 @@ section#content_monsters_list {
 section#content_monsters_edit {
 
   section.monster_summary {
-    @include zen-grid-item(4, 2);
+    @include zen-grid-item(4, 2); // FIXME: this is creating some interior padding
   }
 
   nav.edit_monster_actions {
