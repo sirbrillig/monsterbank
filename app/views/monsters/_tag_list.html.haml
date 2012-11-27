@@ -2,4 +2,3 @@
   %span.tag_item{:id => "delete_#{tag.name}"}
     = tag.name
     = link_to("X", "/monsters/#{@monster.id}/delete_tag/#{tag.id}", :remote => true)
-

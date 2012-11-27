@@ -23,8 +23,9 @@
 
 - unless @monster.new_record?
   %section#tag_form
-    .field#tag_list
-      = render 'tag_list'
+    %section.monster_tags
+      .field#tag_list
+        = render 'tag_list'
 
     = form_for(@monster, :remote => true) do |f|
       .field

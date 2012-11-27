@@ -80,6 +80,20 @@ nav.tags {
 }
 
 .monsters, #content_monsters_edit {
+  #tag_form {
+    section.monster_tags {
+      .tag_item {
+        background-color: $monster-tag-background-color;
+        color: $monster-tag-color;
+        border: 1px solid darken($monster-tag-background-color, 20%);
+        padding-left: 4px;
+        padding-right: 4px;
+        margin-right: 4px;
+        text-decoration: none;
+      }
+    }
+  }
+
   section.monster_summary {
     @include standard-font;
     @include pt-to-ems(font-size, 14pt);
