@@ -20,6 +20,10 @@ section#content_monsters_list {
 
 }
 
+section#content_monsters_new {
+  @include zen-grid-item(3, 6);
+}
+
 section#content_monsters_edit {
 
   section.monster_preview_area {

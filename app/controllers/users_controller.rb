@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     if @user.save
       session[:user_id] = @user.id
       if @monster
-        redirect_to monster_path(@monster), :notice => "Your monster has been saved!"
+        redirect_to monsters_path, :notice => "Your monster has been saved!"
       else
         redirect_to root_url, :notice => "You are signed-up!"
       end

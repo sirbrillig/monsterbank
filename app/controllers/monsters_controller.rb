@@ -45,7 +45,7 @@ class MonstersController < ApplicationController
     @monster = Monster.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.json { render json: @monster }
     end
   end
@@ -60,7 +60,7 @@ class MonstersController < ApplicationController
 
     respond_to do |format|
       if @monster.save
-        format.html { redirect_to @monster, notice: 'Monster was successfully created.' }
+        format.html { redirect_to monsters_path, notice: 'Monster was successfully created.' }
         format.json { render json: @monster, status: :created, location: @monster }
       else
         format.html { render action: "new" }
