@@ -14,7 +14,7 @@
       .form_element= f.select(:subrole, [' ', 'Elite', 'Solo'])
     .field
       .form_label= f.label :high_ability
-      .form_element= f.select(:high_ability, [['Strength', 'str'], ['Constitution', 'con'], ['Dexterity', 'dex'], ['Intelligence', 'int'], ['Wisdom', 'wis'], ['Charisma', 'cha']])
+      .form_element= f.select(:high_ability, [['None', nil], ['Strength', 'str'], ['Constitution', 'con'], ['Dexterity', 'dex'], ['Intelligence', 'int'], ['Wisdom', 'wis'], ['Charisma', 'cha']])
     %nav.edit_monster_actions
       = f.submit 'Save this Monster', :class => :text
   %nav.edit_monster_actions
