@@ -173,10 +173,10 @@ describe "Edit Monster page" do
       before :each do 
         visit edit_monster_path(@mon.id)
         fill_in('monster[name]', :with => "testmonster_name_change_#{Time.now.to_i}")
-        click_button('Save this Monster')
       end
 
       it "redirects to the list page" do
+        click_button('Save this Monster')
         page.should_not have_field('monster[name]')
       end
 
