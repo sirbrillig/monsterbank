@@ -1,31 +1,10 @@
 %section#content_monsters_show
 
-  %p
-    %b Name:
-    = @monster.name
-  %p
-    %b Level:
-    = @monster.level
-  %p
-    %b Role:
-    = @monster.subrole
-    = @monster.role
-  %p
-    %b XP:
-    = @monster.xp
-  %p
-    %b HP:
-    = @monster.hp
+  %section.monster_preview_area
+    %section.monster_summary{:id => "monster_summary_#{@monster.id}"}
+      = render(:partial => '/monsters/monster_summary', :locals => { :monster => @monster })
 
   - if @current_user
-    %aside.tags
-    - @monster.tags.each do |tag|
-      = tag.name
-
-    %nav.controls
-      = link_to 'Edit', edit_monster_path(@monster)
-      \|
-      = link_to 'Back', monsters_path
   - elsif @monster.user
   - else
     %section.save_monster
