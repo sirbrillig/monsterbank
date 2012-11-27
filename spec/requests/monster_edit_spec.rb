@@ -93,7 +93,7 @@ describe "Edit Monster page" do
 
       it "updates the level" do
         click_button('Save this Monster')
-        page.should have_normal_content "Level: 12"
+        page.should have_normal_content "Level 12"
       end
 
       it "fails if the level is 0" do
@@ -131,7 +131,7 @@ describe "Edit Monster page" do
 
       it "updates the role" do
         click_button('Save this Monster')
-        page.should have_normal_content 'Role: Skirmisher'
+        page.should have_normal_content 'Skirmisher'
       end
     end
 
@@ -139,33 +139,33 @@ describe "Edit Monster page" do
       before :each do 
         visit edit_monster_path(@mon.id)
         select('Elite', :from => 'monster[subrole]')
+        click_button('Save this Monster')
       end
 
-      it "redirects to the show page" do
-        click_button('Save this Monster')
+      it "redirects to the list page" do
         page.should_not have_field('monster[subrole]')
       end
 
       it "updates the subrole to Elite" do
-        click_button('Save this Monster')
-        page.should have_normal_content 'Role: Elite'
+        visit edit_monster_path(@mon.id)
+        page.should have_normal_content 'Elite'
       end
     end
 
     context "when changing the subrole to Solo" do
       before :each do 
         visit edit_monster_path(@mon.id)
-        select('Elite', :from => 'monster[subrole]')
+        select('Solo', :from => 'monster[subrole]')
+        click_button('Save this Monster')
       end
 
-      it "redirects to the show page" do
-        click_button('Save this Monster')
+      it "redirects to the list page" do
         page.should_not have_field('monster[subrole]')
       end
 
-      it "updates the subrole to Elite" do
-        click_button('Save this Monster')
-        page.should have_normal_content 'Role: Elite'
+      it "updates the subrole to Solo" do
+        visit edit_monster_path(@mon.id)
+        page.should have_normal_content 'Solo'
       end
     end
 
@@ -173,16 +173,16 @@ describe "Edit Monster page" do
       before :each do 
         visit edit_monster_path(@mon.id)
         fill_in('monster[name]', :with => "testmonster_name_change_#{Time.now.to_i}")
+        click_button('Save this Monster')
       end
 
-      it "redirects to the show page" do
-        click_button('Save this Monster')
+      it "redirects to the list page" do
         page.should_not have_field('monster[name]')
       end
 
       it "updates the name" do
         click_button('Save this Monster')
-        page.should have_normal_content "Name: testmonster_name_change_"
+        page.should have_normal_content "testmonster_name_change_"
       end
 
       it "fails if the name is blank" do
