@@ -36,21 +36,5 @@ describe "The New Monster page" do
     it "shows the new monster" do
       page.should have_normal_content(@mon.name)
     end
-
-    it "shows an email address field"
-
-    context "when entering a email address that exists" do
-      it "says that this account exists"
-
-      it "requests a password"
-
-      it "then redirects to the monster list page"
-    end
-
-    context "when entering a new email address" do
-      it "requests a password"
-
-      it "then redirects to the monster list page"
-    end
   end
 end

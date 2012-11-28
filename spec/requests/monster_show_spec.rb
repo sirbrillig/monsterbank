@@ -40,30 +40,56 @@ describe "Monster page" do
         page.should have_button('Save')
       end
 
-      it "brings the user to a sign-up form" do
-        fill_in('user[email]', :with => @user.email)
-        click_button('Save')
-        page.should have_field('user[email]')
-        page.should have_field('user[password]')
-        page.should have_field('user[password_confirmation]')
-        page.should have_button('Save')
+      context "and an existing email address is entered" do
+        before do
+          @user2 = FactoryGirl.create(:user, :email => 'notappearinginthisfilm@test.com')
+          fill_in('user[email]', :with => @user2.email)
+          click_button('Save')
+        end
+
+        it "says that this account exists" do
+          page.should have_content "exists"
+        end
+
+        it "does not show a sign-up form" do
+          page.should_not have_field('user[password_confirmation]')
+        end
+
+        it "requests a password" do
+          page.should have_field('user[password]')
+        end
+
+        it "then redirects to the monster list page" do
+          fill_in('user[password]', :with => @user2.password)
+          click_button('Save')
+          page.should have_content "All Monsters"
+        end
       end
 
-      context "and the form is filled" do
+      context "and a new email address is entered" do
         before do
-        fill_in('user[email]', :with => @user.email)
-          click_button('Save')
-          fill_in('user[password]', :with => @user.password)
-          fill_in('user[password_confirmation]', :with => @user.password)
+          fill_in('user[email]', :with => @user.email)
           click_button('Save')
         end
 
-        it "logs-in the user" do
-          page.should have_link_to(edit_monster_path(@mon))
+        it "brings the user to a sign-up form" do
+          page.should have_field('user[password_confirmation]')
         end
 
-        it "returns the user to the monster page" do
-          page.should have_normal_content "Name: #{@mon.name}"
+        context "and the sign-up form is filled" do
+          before do
+            fill_in('user[password]', :with => @user.password)
+            fill_in('user[password_confirmation]', :with => @user.password)
+            click_button('Save')
+          end
+
+          it "logs-in the user" do
+            page.should have_link_to(logout_path)
+          end
+
+          it "returns the user to the monster list" do
+            page.should have_normal_content "All Monsters"
+          end
         end
       end
     end
@@ -80,36 +106,36 @@ describe "Monster page" do
 
 
     context "with a level 1 Artillery Monster" do
-      before :each do
+      before do
         @mon = FactoryGirl.create(:level1_artillery, :user => @user)
       end
 
       it "displays Monster name, level, and role" do
         visit monster_path(@mon)
-        page.should have_normal_content "Name: #{@mon.name}"
-        page.should have_normal_content "Level: #{@mon.level}"
-        page.should have_normal_content "Role: #{@mon.role}"
+        page.should have_normal_content "#{@mon.name}"
+        page.should have_normal_content "#{@mon.level}"
+        page.should have_normal_content "#{@mon.role}"
       end
 
       it "displays Monster XP" do
         visit monster_path(@mon)
-        page.should have_normal_content "XP: 100"
+        page.should have_normal_content "XP 100"
       end
     end
 
     context "with a level 1 Elite Artillery Monster" do
-      before :each do
+      before do
         @mon = FactoryGirl.create(:level1_elite_artillery, :user => @user)
       end
 
       it "displays Elite subrole" do
         visit monster_path(@mon)
-        page.should have_normal_content 'Role: Elite Artillery'
+        page.should have_normal_content 'Elite Artillery'
       end
 
       it "displays double XP for a Elite" do
         visit monster_path(@mon)
-        page.should have_normal_content 'XP: 200'
+        page.should have_normal_content 'XP 200'
       end
     end
   end
