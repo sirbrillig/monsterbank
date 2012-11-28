@@ -21,7 +21,7 @@
         .field
           = f.label :password
           = f.password_field :password, :autofocus => true, :class => :text
-        - if @current_user
+        - if @user.new_record?
           .field
             = f.label :password_confirmation, :class => :text
             = f.password_field :password_confirmation, :class => :text

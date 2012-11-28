@@ -108,10 +108,6 @@ describe "Monster page" do
         Monster.destroy_all
         visit monster_path(1)
       end
-
-      it "shows the 'not found' page" do
-        page.should have_content "not found"
-      end
     end
 
     context "with a monster that belongs to another user" do

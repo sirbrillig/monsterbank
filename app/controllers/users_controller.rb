@@ -7,9 +7,7 @@ class UsersController < ApplicationController
     if current_user
       @user = @current_user = current_user
     else
-      unless @user = User.find(params[:user][:id])
-        @user = User.new(params[:user])
-      end
+      @user = User.find_or_create_by_id(params[:user][:id], params[:user])
     end
 
     if params[:monid]
@@ -36,14 +34,14 @@ class UsersController < ApplicationController
     end
   end
 
+  alias_method :update, :create
+
   def save_monster
     @current_user = current_user
     if @current_user
       @user = current_user
     else
-      unless @user = User.find_by_email(params[:user][:email]) 
-        @user = User.new(params[:user])
-      end
+      @user = User.find_or_create_by_email(params[:user][:email], params[:user])
     end
     @monster = Monster.find(params[:monid])
   end

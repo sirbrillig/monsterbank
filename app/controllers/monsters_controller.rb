@@ -25,7 +25,6 @@ class MonstersController < ApplicationController
   def show
     @current_user = current_user
     @monster = Monster.find(params[:id])
-    return render 'not_found' if @monster.nil?
 
     unless @monster.user
       # If this monster belongs to no one...
