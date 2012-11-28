@@ -11,6 +11,14 @@ describe "The New Monster page" do
 
   context "when logged-in and creating a monster" do
     before do
+      Monster.destroy_all
+      @user = FactoryGirl.create(:user)
+      visit login_path
+      fill_in('email', :with => @user.email) 
+      fill_in('password', :with => @user.password)
+      click_button('Log In')
+
+      visit new_monster_path
       @mon = FactoryGirl.build(:monster, :name => 'hobbog_monster_name')
       fill_in('monster[name]', :with => @mon.name)
       click_button('Save this Monster')
