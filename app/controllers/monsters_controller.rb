@@ -2,7 +2,7 @@ class MonstersController < ApplicationController
   before_filter :authenticate_user, :except => [:new, :show, :create]
 
   def index
-    @user = current_user
+    @user = @current_user = current_user
     @monsters = @current_user.monsters
 
     respond_to do |format|
@@ -12,7 +12,7 @@ class MonstersController < ApplicationController
   end
 
   def starred
-    @user = current_user
+    @user = @current_user = current_user
     @monsters = @current_user.monsters.select { |monster| monster.starred }
     @starred = true
 
@@ -24,15 +24,12 @@ class MonstersController < ApplicationController
 
   def show
     @current_user = current_user
-    if @current_user
-      @monster = Monster.for_user(@current_user).find(params[:id])
-    else
-      if @monster = Monster.find(params[:id])
-        if @monster.user
-        else
-          @user = User.new
-        end
-      end
+    @monster = Monster.find(params[:id])
+    return render 'not_found' if @monster.nil?
+
+    unless @monster.user
+      # If this monster belongs to no one...
+      @user = User.new
     end
 
     respond_to do |format|

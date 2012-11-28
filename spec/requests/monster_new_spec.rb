@@ -1,8 +1,11 @@
 require 'spec_helper'
 
 describe "The New Monster page" do
-  it "displays the form for creating a monster" do
+  before do
     visit new_monster_path
+  end
+
+  it "displays the form for creating a monster" do
     page.should have_field('monster[name]')
   end
 

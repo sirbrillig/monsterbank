@@ -4,9 +4,7 @@
     %section.monster_summary{:id => "monster_summary_#{@monster.id}"}
       = render(:partial => '/monsters/monster_summary', :locals => { :monster => @monster })
 
-  - if @current_user
-  - elsif @monster.user
-  - else
+  - unless @monster.user
     %section.save_monster
       %h1 Save this Monster for Later
       = form_for(@user, :url => user_save_monster_path(:monid => @monster.id)) do |f|

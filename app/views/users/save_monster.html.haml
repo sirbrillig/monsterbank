@@ -4,20 +4,27 @@
 
     %section.description
       %h1 Saving Monster
-      %p Please choose a password to protect your monster.
+      - unless @user.new_record?
+        %p Please enter your password to save this monster.
+      - else
+        %p Please choose a password to protect your monster.
 
     %section.form
       = form_for @user do |f|
         = hidden_field_tag 'monid', @monster.id
-        .field
-          = f.label :email
-          = f.text_field :email, :value => @user.email, :class => :text
+        - if @user.new_record?
+          .field
+            = f.label :email
+            = f.text_field :email, :value => @user.email, :class => :text
+        - else
+          = hidden_field_tag 'user[id]', @user.id
         .field
           = f.label :password
           = f.password_field :password, :autofocus => true, :class => :text
-        .field
-          = f.label :password_confirmation, :class => :text
-          = f.password_field :password_confirmation, :class => :text
+        - if @current_user
+          .field
+            = f.label :password_confirmation, :class => :text
+            = f.password_field :password_confirmation, :class => :text
         .actions
           = f.submit 'Save'
 

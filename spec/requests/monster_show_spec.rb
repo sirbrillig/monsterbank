@@ -37,7 +37,6 @@ describe "Monster page" do
 
       it "displays a 'save this monster' form with an email field" do
         page.should have_field('user[email]')
-        page.should have_button('Save')
       end
 
       context "and an existing email address is entered" do
@@ -48,7 +47,7 @@ describe "Monster page" do
         end
 
         it "says that this account exists" do
-          page.should have_content "exists"
+          page.should have_content "your password"
         end
 
         it "does not show a sign-up form" do
@@ -59,7 +58,7 @@ describe "Monster page" do
           page.should have_field('user[password]')
         end
 
-        it "then redirects to the monster list page" do
+        it "after the user is logged-in redirects to the monster list page" do
           fill_in('user[password]', :with => @user2.password)
           click_button('Save')
           page.should have_content "All Monsters"
@@ -104,6 +103,32 @@ describe "Monster page" do
       click_button('Log In')
     end
 
+    context "when a monster does not exist" do
+      before do
+        Monster.destroy_all
+        visit monster_path(1)
+      end
+
+      it "shows the 'not found' page" do
+        page.should have_content "not found"
+      end
+    end
+
+    context "with a monster that belongs to another user" do
+      before do
+        @user2 = FactoryGirl.create(:user, :email => 'anotherbrother')
+        @mon = FactoryGirl.create(:monster, :name => 'monsterfromanothermother', :user => @user2)
+        visit monster_path(@mon)
+      end
+
+      it "shows the monster" do
+        page.should have_normal_content @mon.name.to_s
+      end
+
+      it "does not show an email form" do
+        page.should_not have_field('user[email]')
+      end
+    end
 
     context "with a level 1 Artillery Monster" do
       before do
@@ -112,9 +137,9 @@ describe "Monster page" do
 
       it "displays Monster name, level, and role" do
         visit monster_path(@mon)
-        page.should have_normal_content "#{@mon.name}"
-        page.should have_normal_content "#{@mon.level}"
-        page.should have_normal_content "#{@mon.role}"
+        page.should have_normal_content @mon.name.to_s
+        page.should have_normal_content @mon.level.to_s
+        page.should have_normal_content @mon.role.to_s
       end
 
       it "displays Monster XP" do
