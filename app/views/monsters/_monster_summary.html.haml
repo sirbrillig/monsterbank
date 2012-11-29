@@ -1,8 +1,9 @@
 %section.monster_name
-  - if monster.starred
-    %span= link_to(image_tag('star.png', :id => "star_#{monster.id}"), "/monsters/#{monster.id}/star", :id => "star_monster_#{monster.id}", :remote => true)
-  - else
-    %span= link_to(image_tag('unstar.png', :id => "star_#{monster.id}"), "/monsters/#{monster.id}/star", :id => "star_monster_#{monster.id}", :remote => true)
+  - if @current_user and @current_user == monster.user
+    - if monster.starred
+      %span= link_to(image_tag('star.png', :id => "star_#{monster.id}"), "/monsters/#{monster.id}/star", :id => "star_monster_#{monster.id}", :remote => true)
+    - else
+      %span= link_to(image_tag('unstar.png', :id => "star_#{monster.id}"), "/monsters/#{monster.id}/star", :id => "star_monster_#{monster.id}", :remote => true)
   %span!= "<strong>#{monster.name}</strong>"
   %span.monster_xp!= "<strong>XP</strong> #{monster.xp}"
 %section.monster_level

@@ -20,7 +20,7 @@ section#content_monsters_list {
 
 }
 
-section#content_monsters_new {
+section#content_monsters_new, section#content_monsters_show {
   @include zen-grid-item(3, 6);
 }
 
@@ -83,7 +83,7 @@ nav.tags {
   }
 }
 
-.monsters, #content_monsters_edit {
+.monsters, #content_monsters_edit, #content_monsters_show {
   #tag_form {
     section.monster_tags {
       .tag_item {
