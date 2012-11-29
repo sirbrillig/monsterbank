@@ -20,6 +20,7 @@
   %nav.edit_monster_actions
     - unless @monster.new_record?
       = button_to "Delete this Monster", @monster, :method => :delete, :class => :text
+      = button_to "Back to Monster List", {:action => :index}, :method => :get, :class => :text
 
 - unless @monster.new_record?
   %section#tag_form

@@ -13,7 +13,7 @@ describe "Edit Monster page" do
   end
 
   context "when logged-in" do
-    before :each do
+    before do
       Monster.destroy_all
       @user = FactoryGirl.create(:user)
       visit login_path

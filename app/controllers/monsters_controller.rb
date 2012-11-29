@@ -26,10 +26,8 @@ class MonstersController < ApplicationController
     @current_user = current_user
     @monster = Monster.find(params[:id])
 
-    unless @monster.user
-      # If this monster belongs to no one...
-      @user = User.new
-    end
+    # If this monster belongs to no one...
+    @user = User.new unless @monster.user
 
     respond_to do |format|
       format.html
