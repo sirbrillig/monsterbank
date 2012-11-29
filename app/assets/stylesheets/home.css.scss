@@ -19,6 +19,9 @@ section#content_home {
     @include zen-grid-item(4,5);
   }
 
+  h1, p {
+    @include standard-font;
+  }
 
   .links1 {
     a {
