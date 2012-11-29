@@ -15,7 +15,11 @@ section#content_monsters_list {
     @include zen-grid-item(2,1);
   }
   nav.monsters {
-    @include zen-grid-item(4,3);
+    @include zen-grid-item(9,3);
+    .monster_summary {
+      float: left;
+      margin-right: 10px;
+    }
   }
 
 }
