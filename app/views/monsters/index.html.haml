@@ -2,13 +2,13 @@
   %nav.tags
     %ul
       - if @tag
-        %li= link_to('All Monsters', monsters_path)
+        %li.all_monsters= link_to('All Monsters', monsters_path)
         %li.starred= link_to('Starred', starred_path)
       - elsif @starred
-        %li= link_to('All Monsters', monsters_path)
+        %li.all_monsters= link_to('All Monsters', monsters_path)
         %li.starred.selected= link_to('Starred', starred_path)
       - else
-        %li.selected= link_to('All Monsters', monsters_path)
+        %li.all_monsters.selected= link_to('All Monsters', monsters_path)
         %li.starred= link_to('Starred', starred_path)
 
       - @user.tags.each do |tag|

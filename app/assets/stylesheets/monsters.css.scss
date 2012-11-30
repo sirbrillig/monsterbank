@@ -66,12 +66,9 @@ nav.tags {
 
   a {
     @include standard-font;
-    padding-left: 18px;
+    margin-left: 18px;
+    padding-left: 10px;
     padding-right: 10px;
-  }
-
-  li.selected a {
-    background-color: $selected-tag-color;
   }
 
   li.tag {
@@ -80,10 +77,27 @@ nav.tags {
     background-position: left bottom;
   }
 
+  li.all_monsters {
+    background-image: url('home.png');
+    background-repeat: no-repeat;
+    background-position: left bottom;
+  }
+
   li.starred {
     background-image: url('star.png');
     background-repeat: no-repeat;
     background-position: left bottom;
+  }
+
+  li.selected a {
+    position: relative;
+    background-color: $selected-tag-color;
+  }
+
+  li.selected a:after {
+    margin-left: 15px;
+    margin-top: -1px;
+    @include css-triangle ("right", 10px, $selected-tag-color);
   }
 }
 
