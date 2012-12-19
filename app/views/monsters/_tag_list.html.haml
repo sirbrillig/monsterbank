@@ -1,4 +1,6 @@
-- @monster.tags.each do |tag|
-  %span.tag_item{:id => "delete_#{tag.name}"}
-    = tag.name
-    = link_to("X", "/monsters/#{@monster.id}/delete_tag/#{tag.id}", :remote => true)
+- unless @monster.tags.empty?
+  .form_label= label_tag :Tags
+  - @monster.tags.each do |tag|
+    %span.tag_item{:id => "delete_#{tag.name}"}
+      = tag.name
+      = link_to("X", "/monsters/#{@monster.id}/delete_tag/#{tag.id}", :remote => true)

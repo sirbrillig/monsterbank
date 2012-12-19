@@ -110,7 +110,11 @@ a:visited {
 input.text {
   @include standard-font;
   @include pt-to-ems(font-size, 24pt);
-  width: 9em;
+  width: 216px;
+}
+
+.form_element {
+  margin-bottom: 10px;
 }
 
 label {
@@ -120,8 +124,11 @@ label {
 
 select {
   @include standard-font;
-  @include pt-to-ems(font-size, 24pt);
-  width: 9em;
+  width: 216px;
+  border: 1px solid #ccc;
+  height: 30px;
+  line-height: 30px;
+  background-color: #fff;
 }
 
 html {
@@ -133,6 +140,7 @@ body {
   margin: 0px;
   font-size: 100%; // Necessary for scaling.
   line-height: 1.125em; // 18pt; From: http://www.alistapart.com/articles/howtosizetextincss/
+  background-color: #ebe7e4;
 }
 
 .content {

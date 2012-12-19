@@ -1,35 +1,37 @@
 %section.edit_monster_area
-  = form_for(@monster, :html => {:id => 'edit_monster'}) do |f|
-    .field
-      .form_label= f.label :name
-      .form_element= f.text_field :name, :autofocus => true, :class => :text
-    .field
-      .form_label= f.label :level
-      .form_element= f.number_field :level, :value => @monster.level || 1, :min => 1, :max => 30, :class => :text
-    .field
-      .form_label= f.label :role
-      .form_element= f.select(:role, monster_roles)
-    .field
-      .form_label= f.label :subrole
-      .form_element= f.select(:subrole, [' ', 'Elite', 'Solo'])
-    .field
-      .form_label= f.label :high_ability
-      .form_element= f.select(:high_ability, [['None', nil], ['Strength', 'str'], ['Constitution', 'con'], ['Dexterity', 'dex'], ['Intelligence', 'int'], ['Wisdom', 'wis'], ['Charisma', 'cha']])
+  %section.col_1
+    = form_for(@monster, :html => {:id => 'edit_monster'}) do |f|
+      .field
+        .form_label= f.label :name
+        .form_element= f.text_field :name, :autofocus => true, :class => :text
+      .field
+        .form_label= f.label :level
+        .form_element= f.number_field :level, :value => @monster.level || 1, :min => 1, :max => 30, :class => :text
+      .field
+        .form_label= f.label :role
+        .form_element= f.select(:role, monster_roles)
+      .field
+        .form_label= f.label :subrole
+        .form_element= f.select(:subrole, [' ', 'Elite', 'Solo'])
+      .field
+        .form_label= f.label :high_ability
+        .form_element= f.select(:high_ability, [['None', nil], ['Strength', 'str'], ['Constitution', 'con'], ['Dexterity', 'dex'], ['Intelligence', 'int'], ['Wisdom', 'wis'], ['Charisma', 'cha']])
+  %section.col_2
     %nav.edit_monster_actions
-      = f.submit 'Save this Monster', :class => :text
-  %nav.edit_monster_actions
-    - unless @monster.new_record?
-      = button_to "Delete this Monster", @monster, :method => :delete, :class => :text
-      = button_to "Back to Monster List", {:action => :index}, :method => :get, :class => :text
+      - unless @monster.new_record?
+        = link_to image_tag('save_button.png'), '#', :onclick => "$('#edit_monster').submit();"
+        = link_to image_tag('delete_button.png'), @monster, :method => :delete, :confirm => "Are you sure?"
+        = link_to image_tag('back_button.png'), monsters_path
 
 - unless @monster.new_record?
   %section#tag_form
-    %section.monster_tags
-      .field#tag_list
-        = render 'tag_list'
 
     = form_for(@monster, :remote => true) do |f|
       .field
         .form_label= f.label :Add_Tag
         .form_element= text_field_tag :new_tag, nil, :class => :text
-        = f.submit 'Add', :name => 'new_tag_button'
+        = f.submit 'Add', name: 'new_tag_button', type: :image, src: image_path('add_tag_button.png')
+
+    %section.monster_tags
+      .field#tag_list
+        = render 'tag_list'

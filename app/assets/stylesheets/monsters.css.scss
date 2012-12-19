@@ -35,13 +35,14 @@ section#content_monsters_edit {
     @include zen-grid-item(4, 2);
   }
 
-  nav.edit_monster_actions {
-    @include zen-clear();
-    @include zen-grid-item(3, 8);
-  }
+  .edit_monster_area {
+    .col_1 {
+      @include zen-grid-item(6, 6);
+    }
 
-  section.edit_monster_area {
-    @include zen-grid-item(6, 6);
+    .col_2 {
+      @include zen-grid-item(3, 9);
+    }
   }
 
   #tag_form {
@@ -103,8 +104,30 @@ nav.tags {
 }
 
 .monsters, #content_monsters_edit, #content_monsters_show {
+  .edit_monster_area a img {
+    margin-bottom: 8px;
+  }
+
   #tag_form {
+    input[type="image"] {
+      display: inline;
+      float: right;
+      margin-right: 50px;
+      margin-top: 2px;
+    }
+
+    .form_element {
+      display: inline;
+      width: 152px;
+    }
+
+    input.text {
+      width: 120px;
+    }
+
     section.monster_tags {
+      margin-top: 10px;
+
       .tag_item {
         @include pt-to-ems(font-size, 12pt);
         background-color: $monster-heading-background-color;
