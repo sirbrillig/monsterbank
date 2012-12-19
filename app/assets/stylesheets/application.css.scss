@@ -1,4 +1,5 @@
 @import "zen";
+@import "fonts.css.scss";
 
 $zen-column-count: 12;
 $zen-gutter-width: 10px;
@@ -47,7 +48,7 @@ $browser-context: 16pt;
 }
 
 @mixin standard-font {
-  font-family: "gillsans", "Arial", sans-serif;
+  font-family: "monsterfont", "Arial", sans-serif;
   @include pt-to-ems(font-size, 18pt);
   text-align: justify;
 }

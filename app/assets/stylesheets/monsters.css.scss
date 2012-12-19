@@ -7,6 +7,7 @@ $monster-heading-color: #fff;
 $monster-heading-background-color: #3a3a3a;
 $monster-tag-color: #fff;
 $monster-tag-background-color: #a09e9c;
+$tag-delete-button-color: #be5036;
 
 section#content_monsters_list {
 
@@ -105,12 +106,18 @@ nav.tags {
   #tag_form {
     section.monster_tags {
       .tag_item {
-        background-color: $monster-tag-background-color;
+        @include pt-to-ems(font-size, 12pt);
+        background-color: $monster-heading-background-color;
         color: $monster-tag-color;
-        border: 1px solid darken($monster-tag-background-color, 20%);
+        border: 1px solid darken($monster-heading-background-color, 20%);
         padding-left: 4px;
         padding-right: 4px;
         margin-right: 4px;
+        text-decoration: none;
+      }
+
+      a {
+        color: $tag-delete-button-color;
         text-decoration: none;
       }
     }
